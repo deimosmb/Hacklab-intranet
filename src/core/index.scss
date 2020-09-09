@@ -1,0 +1,31 @@
+@import './../variables';
+
+.textlabel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+  color: $secondary-text-color;
+  position: relative;
+}
+
+.textinput {
+  padding: 0.75rem;
+  color: $primary-text-color;
+  border-radius: 0.25rem;
+  border: 1px solid $secondary-color;
+  width: 100%;
+  font-size: 0.8rem;
+  &:focus {
+    outline:none;
+    box-shadow: 0 0 0.1rem 0.01rem lighten($primary-color, 15%);
+  }
+}
+
+.textarea {
+  font-family: 'Roboto';
+  resize: none;
+  min-height: 2rem;
+  height: 100%;
+  font-size: 0.9rem;
+}

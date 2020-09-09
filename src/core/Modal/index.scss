@@ -1,0 +1,57 @@
+@import './../../variables';
+
+// $primary-color: hsl(275, 100%, 25%);
+// $primary-background-color: hsl(275, 100%, 95%);
+// $primary-text-color: hsl(275, 12%, 18%);
+
+// $secondary-color: hsl(275, 12%, 80%);
+// $secondary-text-color:hsl(275, 12%, 55%);
+
+// $color-success: hsl(150, 100%, 20%);
+// $color-warning: hsl(30, 100%, 40%);
+// $color-error: hsl(5, 100%, 35%);
+// $background-color-success: hsl(149, 60%, 83%);
+// $background-color-warning: hsl(30, 70%, 60%);
+// $background-color-error: hsl(5, 60%, 55%);
+
+// $paragraph-line-height: 1.75;
+
+// the behind background of the modal (the transparant black / grey part)
+.modal-background {
+  position: fixed; //ignore all other postions
+  padding-top: 100px; /* Location of the box */
+  z-index: 999; //sit on top of everthing above app header and messages
+  left: 0; // put it to the 0 position of lett
+  right: 0; //put it to the 0 position of right
+  width: 100%; //stretch to maximum width
+  height: 100%; //stretch to maximum height
+  background-color: black; //fall back color
+  background-color:  hsla(0, 0%, 0%, 0.8); //set hue saturation lightnis and alpha values
+}
+
+//main content of the modal
+.modal-content {
+  margin: auto;
+  position: relative; //sets relative for absolute close button
+  padding: 1rem; // add some padding from all sides
+  width: 90vw; //set width to a maximum of 90 viewport height
+  background-color: $primary-background-color;
+  height: 100%;
+  max-height: 90vh; //set maximum of 90vh if the content grows that big on small devices
+  overflow: auto; // if  content exeeds that of 90 vh enable scroll
+}
+
+//the model close button
+.modal-close {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  color: $primary-text-color;
+  font-weight: bold;
+  font-size: 1.5rem;
+  &:hover, &:focus{
+    color: darken($primary-text-color, 15%);
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,61 @@
+@import './../../variables';
+
+.message-basic {
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+  padding-top: 0.25rem;
+  line-height: 1.1;
+  min-height: 0.8rem;
+}
+
+.message {
+  @extend .message-basic;
+  &-error {
+    color: $color-error;
+  }
+  &-success {
+    color: $color-success;
+  }
+}
+
+.message-block {
+  @extend .message-basic;
+  padding: 1rem;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition:  visibility 1s, opacity 2s;
+  white-space: nowrap;
+  overflow: hidden;
+  &-error {
+    background-color: $background-color-error;
+    border-left: $color-error 3px solid;
+    color: $color-error;
+  }
+  &-success {
+    background-color: $background-color-success;
+    border-left: $color-success 3px solid;
+    color: $color-success;
+  }
+}
+
+.message-block-run {
+  opacity: 1;
+  visibility: visible;
+}
+
+.text-block {
+  font-family: 'Open Sans';
+  margin: 0;
+  color: $primary-text-color;
+}
+
+@media only screen and (min-width: 40rem) {
+  .message-block {
+    width: auto;
+    right: 0;
+  }
+}

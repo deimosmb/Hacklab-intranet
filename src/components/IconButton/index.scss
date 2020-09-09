@@ -1,0 +1,13 @@
+@import './../../variables';
+
+.icon {
+  font-size: 1.5rem;
+  padding: 0 0.25rem 0 0.25rem !important;
+  background-color: white;
+  cursor: pointer;
+  display: inline;
+  color: $secondary-text-color;
+  &:hover {
+    color: darken($secondary-text-color, 30%);
+  }
+}

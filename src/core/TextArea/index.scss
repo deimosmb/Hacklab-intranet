@@ -1,0 +1,27 @@
+@import './../../variables';
+
+.textlabel {
+  display: block;
+  width: 100%;
+  color: $secondary-text-color;
+}
+
+.textarea {
+  font-family: inherit;
+  resize: none;
+  height: 100%;
+}
+
+.textinput {
+  padding: 0.75rem;
+  color: $primary-text-color;
+  border-radius: 0.25rem;
+  border: 1px solid $secondary-color;
+  width: 100%;
+  font-size: 0.8rem;
+
+  &:focus {
+    outline:none;
+    box-shadow: 0 0 0.1rem 0.01rem lighten($primary-color, 15%);
+  }
+}

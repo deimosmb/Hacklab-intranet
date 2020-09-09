@@ -1,0 +1,36 @@
+@import './../../variables';
+
+.participants {
+  &-item {
+    border-bottom: 1px solid $secondary-color;
+    width: 100%;
+    padding: 0.5rem 1rem 0.5rem 0;
+    margin: 0.5rem 0 0.5rem 0;
+    line-height: 1.25;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: lighten($secondary-color, 19%);
+    }
+    &-parts {
+      font-size: 0.8rem;
+      display: flex;
+      color: darken($secondary-color, 40%);
+      & > span {
+        padding-right: 0.5rem;
+      }
+    }
+  }
+  @media only screen and (min-width: 40rem) {
+    &-item {
+      &-header {
+        font-size: 1rem;
+      }
+      &-parts {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
