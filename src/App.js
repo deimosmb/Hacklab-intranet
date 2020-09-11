@@ -12,9 +12,7 @@ function App() {
       <header className="Header">
         <nav className="Header-nav">
           <Link to="/">
-            <h1 className="fa fa-flask">
-              HACKLAB<i className="fa fa-code"></i>
-            </h1>
+            <h1 className="fa fa-flask">HACKLAB</h1>
           </Link>
         </nav>
       </header>

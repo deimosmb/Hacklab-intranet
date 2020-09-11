@@ -5,7 +5,6 @@ import { Label, TextArea, TextInput, Button } from "./../../core/Form";
 import {
   validate,
   min,
-  max,
   required,
   phonenumber,
   email,
@@ -44,14 +43,7 @@ export default function CreateNewParticipant() {
       (v) => required(v, "Het doel mag niet leeg zijn!"),
       (v) => min(v, 20),
     ],
-    status: [
-      (v) =>
-        itCanBeEmtpty(
-          v,
-          () => min(v, 3),
-          () => max(v, 20)
-        ),
-    ],
+    status: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
     source: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
     phonenumber: [(v) => itCanBeEmtpty(v, () => phonenumber(v))],
     email: [(v) => itCanBeEmtpty(v, () => email(v))],
@@ -66,6 +58,7 @@ export default function CreateNewParticipant() {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
+    if (name === "purpose") handleValidation(event);
     return setValues((prevstate) => {
       return { ...prevstate, [name]: value };
     });
@@ -95,7 +88,7 @@ export default function CreateNewParticipant() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <Label htmlFor="name">
         Naam *
         <TextInput
@@ -159,27 +152,20 @@ export default function CreateNewParticipant() {
           <Text className="error">{validationErrors.source}</Text>
         </Message>
       </Label>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          columnGap: "10px",
-        }}
-      >
-        <Label style={{ gridColumnStart: "2" }} htmlFor="phonenumber">
-          Telefoonnummer
-          <TextInput
-            placeholder="Telefoonnummer..."
-            name="phonenumber"
-            onChange={handleChange}
-            onBlur={handleValidation}
-            value={values.phonenumber}
-          />
-          <Message>
-            <Text className="error">{validationErrors.phonenumber}</Text>
-          </Message>
-        </Label>
-      </div>
+      <Label htmlFor="phonenumber">
+        Telefoonnummer
+        <TextInput
+          placeholder="Telefoonnummer..."
+          name="phonenumber"
+          onChange={handleChange}
+          onBlur={handleValidation}
+          value={values.phonenumber}
+        />
+        <Message>
+          <Text className="error">{validationErrors.phonenumber}</Text>
+        </Message>
+      </Label>
+
       <Label htmlFor="email">
         E-mailadres
         <TextInput
@@ -194,7 +180,7 @@ export default function CreateNewParticipant() {
         </Message>
       </Label>
       <div style={{ display: "flex", justifyContent: "end" }}>
-        <Button name="TOEVOEGEN" />
+        <Button type="button" name="TOEVOEGEN" onClick={handleSubmit} />
       </div>
     </form>
   );

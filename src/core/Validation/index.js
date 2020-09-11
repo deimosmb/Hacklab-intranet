@@ -12,8 +12,11 @@ export const validate = ({ name, value, rules, errors }, n = 0) => {
 };
 
 export const min = (v, l, t) =>
-  v.trim().length <= l
-    ? t ?? `De tekst moet minimaal uit ${l} tekens bestaan!`
+  v.trim().length < l
+    ? t ??
+      `De tekst moet minimaal uit ${l} tekens bestaan! - nog ${
+        l - v.trim().length
+      } tekens te gaan.`
     : null;
 
 export const max = (v, l, t) =>

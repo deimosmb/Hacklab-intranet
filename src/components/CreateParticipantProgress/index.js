@@ -14,6 +14,7 @@ export default function CreateParticipantPogress({ setActive, active, id }) {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
+    handleValidation(event);
     return setData((prevstate) => {
       return { ...prevstate, [name]: value };
     });

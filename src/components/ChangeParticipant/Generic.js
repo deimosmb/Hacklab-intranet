@@ -4,7 +4,6 @@ import { Label, TextInput, Button } from "./../../core/Form";
 import {
   validate,
   min,
-  max,
   phonenumber,
   email,
   itCanBeEmtpty,
@@ -37,14 +36,7 @@ export default function ChangeGenericParticipant(props) {
   ];
 
   const rules = {
-    status: [
-      (v) =>
-        itCanBeEmtpty(
-          v,
-          () => min(v, 3),
-          () => max(v, 20)
-        ),
-    ],
+    status: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
     source: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
     phonenumber: [(v) => itCanBeEmtpty(v, () => phonenumber(v))],
     email: [(v) => itCanBeEmtpty(v, () => email(v))],
@@ -91,7 +83,7 @@ export default function ChangeGenericParticipant(props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <div className="profile profile-generic" style={{ paddingTop: "1rem" }}>
         <Select
           title="Hacklab locatie"
@@ -157,7 +149,7 @@ export default function ChangeGenericParticipant(props) {
         </Label>
       </div>
       <div style={{ display: "flex", justifyContent: "end" }}>
-        <Button name="AANPASSEN" />
+        <Button name="AANPASSEN" onClick={handleSubmit} />
       </div>
     </form>
   );
