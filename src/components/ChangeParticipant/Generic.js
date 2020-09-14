@@ -95,11 +95,8 @@ export default function ChangeGenericParticipant(props) {
               <Select
                 title="Hacklab locatie"
                 name="location"
-                onChange={handleChange}
-                onBlur={handleValidation}
-                value={values.location ?? ""}
+                value={values.location}
                 setValues={setValues}
-                values={values}
                 options={options}
               />
               <Label htmlFor="status">

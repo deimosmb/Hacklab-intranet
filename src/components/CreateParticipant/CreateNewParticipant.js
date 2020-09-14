@@ -19,10 +19,15 @@ export default function CreateNewParticipant() {
 
   const history = useHistory();
 
+  const options = [
+    { name: "Leeuwarden", id: "jshdfkjshf" },
+    { name: "Heerenveen", id: "jshdfk1shf" },
+  ];
+
   const [values, setValues] = useState({
     name: "",
     purpose: "",
-    location: "Heerenveen",
+    location: options[0].name,
     source: "",
     startdate: "",
     email: "",
@@ -31,11 +36,6 @@ export default function CreateNewParticipant() {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
-
-  const options = [
-    { name: "Leeuwarden", id: "jshdfkjshf" },
-    { name: "Heerenveen", id: "jshdfk1shf" },
-  ];
 
   const rules = {
     name: [(v) => required(v)],
@@ -119,11 +119,8 @@ export default function CreateNewParticipant() {
       <Select
         title="Locatie Hacklab"
         name="location"
-        onChange={handleChange}
-        onBlur={handleValidation}
         value={values.location}
         setValues={setValues}
-        values={values}
         options={options}
       />
       <Label htmlFor="status">

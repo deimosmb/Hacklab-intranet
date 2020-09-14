@@ -1,54 +1,49 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./../index.scss";
 import "./index.scss";
 
-const List = React.forwardRef(({ options, onClick }, ref) => (
-  <div ref={ref} className="selectlist">
+const List = ({ options, onClick, onMouseDown }) => (
+  <div className="selectlist">
     {options.map((o) => (
-      <div key={o.id} id={o.name} onClick={() => onClick(o.name)}>
+      <div
+        key={o.id}
+        id={o.name}
+        onClick={() => onClick(o.name)}
+        onMouseDown={onMouseDown}
+      >
         {o.name}
       </div>
     ))}
   </div>
-));
+);
 
-export const Select = ({
-  name,
-  title,
-  values,
-  setValues,
-  options,
-  ...rest
-}) => {
+export const Select = ({ name, title, setValues, options, ...rest }) => {
   const [active, setActive] = useState(false);
 
-  const [value, setvalue] = useState(options[0].name);
-
-  const refList = useRef();
-  const refLocation = useRef();
-  const refSelect = useRef();
-  const refAngle = useRef();
+  const [value, setvalue] = useState(rest.value);
 
   useEffect(() => {
     setValues((prevstate) => {
       return { ...prevstate, location: value };
     });
     setActive(false);
-  }, [value, setValues]);
+  }, [setValues, value]);
 
   const handleFocus = () => {
-    setActive(true);
+    setActive(!active);
   };
 
-  window.onclick = (e) => {
-    const ids = [refLocation, refSelect, refAngle];
-    const id = e.target;
-    if (
-      ids.filter((e) => e.current !== id).length === 3 ||
-      e.target.id === value
-    ) {
-      setActive(false);
-    }
+  const handleOnMouseDown = (event) => {
+    event.preventDefault();
+  };
+
+  const handleOnClick = (i) => {
+    setvalue(i);
+    setActive(false);
+  };
+
+  const onHandleBlur = () => {
+    setActive(false);
   };
 
   return (
@@ -58,30 +53,22 @@ export const Select = ({
         className="textlabel"
         style={{ marginBottom: "0rem" }}
       >
-        {" "}
         {title}
       </label>
-      <div
-        className="selectinput"
-        ref={refSelect}
-        id="select"
-        onClick={handleFocus}
-      >
+      <div className="selectinput" id="select" onClick={handleFocus}>
         <input
           {...rest}
           readOnly={true}
-          ref={refLocation}
           id={name}
           name={name}
-        />{" "}
-        <i id="angle" ref={refAngle} className="fa fa-angle-down "></i>
+          onBlur={onHandleBlur}
+        />
+        <i id="angle" className="fa fa-angle-down "></i>
       </div>
       {active ? (
         <List
-          ref={refList}
-          onClick={(i) => {
-            setvalue(i);
-          }}
+          onMouseDown={handleOnMouseDown}
+          onClick={handleOnClick}
           options={options}
         />
       ) : null}
