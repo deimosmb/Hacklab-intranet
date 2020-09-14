@@ -14,7 +14,7 @@ const Profile = ({ data }) => {
     setActive(!active);
   };
 
-  const changedData = { ...data, setActive };
+  const changedData = { ...data, active, setActive };
 
   return (
     <>
@@ -22,16 +22,16 @@ const Profile = ({ data }) => {
         <span>ALGEMENE INFORMATIE</span>
         <IconButton onClick={handleOnClick} />
       </ParticipantProfileHeader>
-      {!active && (
-        <div className="profile profile-generic">
-          <ProfileItem name={location} label="Hacklab locatie" />
-          <ProfileItem name={status} label="Status" />
-          <ProfileItem name={source} label="Bron" />
-          <ProfileItem name={phonenumber} label="Telefoonnummer" />
-          <ProfileItem name={email} label="E-mail" />
-        </div>
-      )}
-      {active && <ChangeGenericParticipant {...changedData} />}
+
+      <div className="profile profile-generic">
+        <ProfileItem name={location} label="Hacklab locatie" />
+        <ProfileItem name={status} label="Status" />
+        <ProfileItem name={source} label="Bron" />
+        <ProfileItem name={phonenumber} label="Telefoonnummer" />
+        <ProfileItem name={email} label="E-mail" />
+      </div>
+
+      <ChangeGenericParticipant {...changedData} />
     </>
   );
 };

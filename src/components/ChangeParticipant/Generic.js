@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ParticipantsContext } from "./../../context/participants-context";
 import { Label, TextInput, Button } from "./../../core/Form";
+import { ModalArea } from "./../../core/Modal";
 import {
   validate,
   min,
@@ -83,74 +84,85 @@ export default function ChangeGenericParticipant(props) {
   };
 
   return (
-    <form>
-      <div className="profile profile-generic" style={{ paddingTop: "1rem" }}>
-        <Select
-          title="Hacklab locatie"
-          name="location"
-          onChange={handleChange}
-          onBlur={handleValidation}
-          value={values.location ?? ""}
-          setValues={setValues}
-          values={values}
-          options={options}
-        />
-        <Label htmlFor="status">
-          Status
-          <TextInput
-            name="status"
-            placeholder="Zoekt naar opleiding, werk, stage ..."
-            onChange={handleChange}
-            onBlur={handleValidation}
-            value={values.status ?? ""}
-          />
-          <Message>
-            <Text className="error">{validationErrors.status}</Text>
-          </Message>
-        </Label>
-        <Label htmlFor="source">
-          Bron
-          <TextInput
-            name="source"
-            placeholder="Gemeente Leeuwarden, Website Hacklab ..."
-            onChange={handleChange}
-            onBlur={handleValidation}
-            value={values.source ?? ""}
-          />
-          <Message>
-            <Text className="error">{validationErrors.source}</Text>
-          </Message>
-        </Label>
-        <Label htmlFor="phonenumber">
-          Telefoonnummer
-          <TextInput
-            placeholder="Telefoonnummer..."
-            name="phonenumber"
-            onChange={handleChange}
-            onBlur={handleValidation}
-            value={values.phonenumber ?? ""}
-          />
-          <Message>
-            <Text className="error">{validationErrors.phonenumber}</Text>
-          </Message>
-        </Label>
-        <Label htmlFor="email">
-          E-mail
-          <TextInput
-            placeholder="E-mail"
-            name="email"
-            onChange={handleChange}
-            onBlur={handleValidation}
-            value={values.email ?? ""}
-          />
-          <Message>
-            <Text className="error">{validationErrors.email}</Text>
-          </Message>
-        </Label>
-      </div>
-      <div style={{ display: "flex", justifyContent: "end" }}>
-        <Button name="AANPASSEN" onClick={handleSubmit} />
-      </div>
-    </form>
+    <>
+      {props.active ? (
+        <ModalArea onClose={() => props.setActive(!props.active)}>
+          <form>
+            <div
+              className="profile profile-generic"
+              style={{ paddingTop: "1rem" }}
+            >
+              <Select
+                title="Hacklab locatie"
+                name="location"
+                onChange={handleChange}
+                onBlur={handleValidation}
+                value={values.location ?? ""}
+                setValues={setValues}
+                values={values}
+                options={options}
+              />
+              <Label htmlFor="status">
+                Status
+                <TextInput
+                  name="status"
+                  placeholder="Zoekt naar opleiding, werk, stage ..."
+                  onChange={handleChange}
+                  onBlur={handleValidation}
+                  value={values.status ?? ""}
+                />
+                <Message>
+                  <Text className="error">{validationErrors.status}</Text>
+                </Message>
+              </Label>
+              <Label htmlFor="source">
+                Bron
+                <TextInput
+                  name="source"
+                  placeholder="Gemeente Leeuwarden, Website Hacklab ..."
+                  onChange={handleChange}
+                  onBlur={handleValidation}
+                  value={values.source ?? ""}
+                />
+                <Message>
+                  <Text className="error">{validationErrors.source}</Text>
+                </Message>
+              </Label>
+              <Label htmlFor="phonenumber">
+                Telefoonnummer
+                <TextInput
+                  placeholder="Telefoonnummer..."
+                  name="phonenumber"
+                  onChange={handleChange}
+                  onBlur={handleValidation}
+                  value={values.phonenumber ?? ""}
+                />
+                <Message>
+                  <Text className="error">{validationErrors.phonenumber}</Text>
+                </Message>
+              </Label>
+              <Label htmlFor="email">
+                E-mail
+                <TextInput
+                  placeholder="E-mail"
+                  name="email"
+                  onChange={handleChange}
+                  onBlur={handleValidation}
+                  value={values.email ?? ""}
+                />
+                <Message>
+                  <Text className="error">{validationErrors.email}</Text>
+                </Message>
+              </Label>
+            </div>
+            <div style={{ display: "flex", justifyContent: "end" }}>
+              <Button name="AANPASSEN" onClick={handleSubmit} />
+            </div>
+          </form>
+        </ModalArea>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
