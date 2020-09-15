@@ -1,33 +1,30 @@
-import React, { useState, useContext, useEffect } from "react";
-import { ParticipantsContext } from "./../../context/participants-context";
+import React, { useState, useEffect } from "react";
 import { Label, TextInput, Button } from "./../../core/Form";
 import { ModalArea } from "./../../core/Modal";
-import {
-  validate,
-  min,
-  phonenumber,
-  email,
-  itCanBeEmtpty,
-} from "./../../core/Validation";
+import { validate } from "./../../core/Validation";
+import { participantValidationRules } from "./../CreateParticipant";
 import { ChangeParticipantAPI } from "./ChangeParticipantAPI";
 import { Select } from "./../../core/Select";
 import { Message, Text } from "./../../core/message";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { changeParticipant } from "../../actions/ParticipantActions";
 
 export default function ChangeGenericParticipant(props) {
-  const [, dispatch] = useContext(ParticipantsContext);
-
   const [values, setValues] = useState({});
 
+  const { id } = useParams();
+
+  const { data } = useSelector((state) => state.ParticipantsReducer);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const { location, source, status } = props;
+    const dataValues = data.filter((d) => d.uid.toString() === id);
     setValues({
-      location,
-      source,
-      status,
-      phonenumber: props.phonenumber,
-      email: props.email,
+      ...dataValues[0],
     });
-  }, [props]);
+  }, [data, id]);
 
   const [validationErrors, setValidationErrors] = useState({});
 
@@ -36,12 +33,8 @@ export default function ChangeGenericParticipant(props) {
     { name: "Heerenveen", id: "jshdfk1shf" },
   ];
 
-  const rules = {
-    status: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
-    source: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
-    phonenumber: [(v) => itCanBeEmtpty(v, () => phonenumber(v))],
-    email: [(v) => itCanBeEmtpty(v, () => email(v))],
-  };
+  const { status, source, phonenumber, email } = participantValidationRules;
+  const rules = { status, source, phonenumber, email };
 
   const handleValidation = (event) => {
     const { value, name } = event.target;
@@ -69,10 +62,7 @@ export default function ChangeGenericParticipant(props) {
       ChangeParticipantAPI(
         data,
         (json) => {
-          dispatch({
-            type: "CHANGE_PARTICIPANT",
-            payload: json,
-          });
+          dispatch(changeParticipant(json));
         },
         () =>
           console.error(

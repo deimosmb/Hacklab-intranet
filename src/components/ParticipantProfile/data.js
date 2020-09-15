@@ -1,35 +1,30 @@
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ParticipantsContext } from "./../../context/participants-context";
 import { GetParticipantsProfile } from "./ParticipantProfileAPI";
+import { useSelector, useDispatch } from "react-redux";
 import "./index.scss";
+import { addParticipant } from "../../actions/ParticipantActions";
 
 const Data = (props) => {
-  const [state, dispatch] = useContext(ParticipantsContext);
-
   const { id } = useParams();
 
+  const { data } = useSelector((state) => state.ParticipantsReducer);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (
-      state.participants.data &&
-      state.participants.data.filter((p) => p.uid.toString() === id)[0]
-    ) {
-      return props.setData(
-        state.participants.data.filter((p) => p.uid.toString() === id)[0]
-      );
+    if (data && data.filter((p) => p.uid.toString() === id)[0]) {
+      return props.setData(data.filter((p) => p.uid.toString() === id)[0]);
     }
     GetParticipantsProfile(
       (json) => {
         props.setData(json);
-        dispatch({
-          type: "ADD_PARTICIPANT",
-          payload: json,
-        });
+        dispatch(addParticipant(json));
       },
       (error) => console.log(error),
       id
     );
-  }, [dispatch, id, props, state.participants.data]);
+  }, [data, dispatch, id, props]);
 
   return null;
 };

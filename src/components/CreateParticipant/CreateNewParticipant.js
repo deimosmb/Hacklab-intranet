@@ -1,21 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ParticipantsContext } from "./../../context/participants-context";
 import { Label, TextArea, TextInput, Button } from "./../../core/Form";
-import {
-  validate,
-  min,
-  required,
-  phonenumber,
-  email,
-  itCanBeEmtpty,
-} from "./../../core/Validation";
+import { validate } from "./../../core/Validation";
+import { participantValidationRules } from "./index";
 import { CreateParticipantAPI } from "./CreateParticipantAPI";
+import { useDispatch } from "react-redux";
 import { Select } from "./../../core/Select";
 import { Message, Text } from "./../../core/message";
+import { addParticipant } from "../../actions/ParticipantActions";
 
 export default function CreateNewParticipant() {
-  const [, dispatch] = useContext(ParticipantsContext);
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
@@ -37,17 +32,7 @@ export default function CreateNewParticipant() {
 
   const [validationErrors, setValidationErrors] = useState({});
 
-  const rules = {
-    name: [(v) => required(v)],
-    purpose: [
-      (v) => required(v, "Het doel mag niet leeg zijn!"),
-      (v) => min(v, 20),
-    ],
-    status: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
-    source: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
-    phonenumber: [(v) => itCanBeEmtpty(v, () => phonenumber(v))],
-    email: [(v) => itCanBeEmtpty(v, () => email(v))],
-  };
+  const rules = participantValidationRules;
 
   const handleValidation = (event) => {
     const { value, name } = event.target;
@@ -56,9 +41,14 @@ export default function CreateNewParticipant() {
     setValidationErrors((prev) => ({ ...prev, ...errors }));
   };
 
+  const validationOnChange = (event) => {
+    const arrNames = ["purpose", "status", "source"];
+    if (arrNames.includes(event.target.name)) handleValidation(event);
+  };
+
   const handleChange = (event) => {
     const { value, name } = event.target;
-    if (name === "purpose") handleValidation(event);
+    validationOnChange(event);
     return setValues((prevstate) => {
       return { ...prevstate, [name]: value };
     });
@@ -76,10 +66,7 @@ export default function CreateNewParticipant() {
       CreateParticipantAPI(
         values,
         (json) => {
-          dispatch({
-            type: "ADD_PARTICIPANT",
-            payload: json,
-          });
+          dispatch(addParticipant(json));
           return history.push(`/deelnemer/${json.uid}`);
         },
         (error) => console.log(error)

@@ -1,14 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { TextArea, Button } from "./../../core/Form";
 import { Message, Text } from "./../../core/message";
-import { ParticipantsContext } from "./../../context/participants-context";
 import { ChangeProgressApi } from "./../ChangeParticipantProgress/ChangeProgressApi";
 import { validate, required, min } from "./../../core/Validation";
+import { useDispatch } from "react-redux";
+import { changeProgress } from "../../actions/ProgressActions";
 
 export const ChangeProgress = ({ values, onBlur, setIsActiveClass }) => {
   const { uid, content, created_at, updated_at } = values;
 
-  const [, dispatch] = useContext(ParticipantsContext);
+  const dispatch = useDispatch();
 
   const [value, setValue] = useState(content);
 
@@ -16,7 +17,6 @@ export const ChangeProgress = ({ values, onBlur, setIsActiveClass }) => {
 
   const handleOnChange = (event) => {
     const { value } = event.target;
-    console.log(validationErrors);
     handleValidation(event);
     return setValue(value);
   };
@@ -40,7 +40,6 @@ export const ChangeProgress = ({ values, onBlur, setIsActiveClass }) => {
     });
     setValidationErrors({ ...errors });
     if (Object.keys(errors).filter((e) => errors[e] !== null).length !== 0) {
-      console.log("SHITTTT");
       return true;
     }
     return false;
@@ -50,14 +49,10 @@ export const ChangeProgress = ({ values, onBlur, setIsActiveClass }) => {
     if (value !== content) {
       const values = { uid, content: value, created_at, updated_at };
       if (!finalValidation(event, values)) {
-        console.log("this cant run");
         ChangeProgressApi(
           values,
           (json) => {
-            dispatch({
-              type: "CHANGE_PROGRESS",
-              payload: json,
-            });
+            dispatch(changeProgress(json));
           },
           (error) => console.error(error)
         );

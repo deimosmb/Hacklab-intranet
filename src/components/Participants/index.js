@@ -1,32 +1,32 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { ParticipantsApi } from "./ParticipantsApi";
 import { Button } from "./../../core/Form";
 import { Participant } from "./Participant";
-import { ParticipantsContext } from "./../../context/participants-context";
+import { useSelector, useDispatch } from "react-redux";
 import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
+import { allParticipants } from "./../../actions/ParticipantActions";
 
 //list of participants
 export default function Participants() {
-  const [state, dispatch] = useContext(ParticipantsContext);
-
   const history = useHistory();
 
+  const { data, status, debug } = useSelector(
+    (state) => state.ParticipantsReducer
+  );
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (!state.participants.status) {
+    if (!status) {
       return ParticipantsApi(
         (json) => {
-          if (state.debug)
-            console.log("FIRST CALL OF ALL PARTICIPANTS JSON: ", json);
-          dispatch({
-            type: "ALL_PARTICIPANTS",
-            payload: json,
-          });
+          if (debug) console.log("FIRST CALL OF ALL PARTICIPANTS JSON: ", json);
+          dispatch(allParticipants(json));
         },
         (error) => console.log(error)
       );
     }
-  }, [dispatch, state.debug, state.participants.status]);
+  }, [dispatch, debug, status]);
 
   return (
     <>
@@ -39,8 +39,8 @@ export default function Participants() {
           />
         </Link>
       </ParticipantProfileHeader>
-      {state.participants.data.length > 0 ? (
-        state.participants.data.map((value) => (
+      {data.length > 0 ? (
+        data.map((value) => (
           <Participant
             key={value.uid}
             onClick={() => history.push(`/deelnemer/${value.uid}`)}

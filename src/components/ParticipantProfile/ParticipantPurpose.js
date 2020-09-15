@@ -8,20 +8,16 @@ import "./index.scss";
 
 const ParticipantGoal = ({ data }) => {
   const [active, setActive] = useState(false);
-
-  const [validationErrors, setValidationErrors] = useState({});
+  const [success, setSuccess] = useState(false);
+  //const [validationErrors, setValidationErrors] = useState({});
 
   const handleOnClick = () => {
     setActive(!active);
   };
-  const { name, purpose, uid } = data;
+  const { name, purpose } = data;
   const values = {
-    name,
-    purpose,
-    uid,
-    validationErrors,
-    setValidationErrors,
     setActive,
+    setSuccess,
   };
   return (
     <>
@@ -35,9 +31,7 @@ const ParticipantGoal = ({ data }) => {
         {active && <ChangeGenericParticipant {...values} />}
 
         <MessageBlock
-          className={`success ${
-            validationErrors.success ? "message-block-run" : ""
-          }`}
+          className={`success ${success ? "message-block-run" : ""}`}
         >
           <Text className="success">
             Aanpassen van het doel van de deelnemer is gelukt

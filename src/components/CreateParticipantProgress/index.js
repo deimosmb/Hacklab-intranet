@@ -1,13 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { TextArea, Button } from "./../../core/Form";
 import { Message, Text } from "./../../core/message";
 import { CreateParticipantProgressApi } from "./CreateParticipantProgressApi";
 import { validate, min, required } from "./../../core/Validation";
-import { ParticipantsContext } from "./../../context/participants-context";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import "./index.scss";
+import { addProgress } from "../../actions/ProgressActions";
 
-export default function CreateParticipantPogress({ setActive, active, id }) {
-  const [, dispatch] = useContext(ParticipantsContext);
+export default function CreateParticipantPogress({ setActive, active }) {
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
 
   const [data, setData] = useState({ participantId: id, content: "" });
   const [validationErrors, setValidationErrors] = useState({});
@@ -44,12 +48,7 @@ export default function CreateParticipantPogress({ setActive, active, id }) {
       setActive(false);
       return CreateParticipantProgressApi(
         data,
-        (json) =>
-          dispatch({
-            type: "ADD_PROGRESS",
-            payload: [json],
-            id: id,
-          }),
+        (json) => dispatch(addProgress([json])),
         (error) => console.log(error)
       );
     }
