@@ -7,7 +7,13 @@
   top: 0;
   left: 0;
   z-index: 99;
-  background-color: rgba(0, 0, 0, 0.5);
+  transition: all .2s;
+     background-color: rgba(0, 0, 0, 0);
+  &-transition {
+ 
+    background-color: rgba(0, 0, 0, 0.5);
+    
+  }
 }
 
 .modal-area {
@@ -16,9 +22,14 @@
   height: 100%;
   padding: 1rem;
   background-color: #ffffff;
+  transition: all .2s;
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  transform: scale(0);
+  &-transition {
+    transform: scale(1);
+  }
 }
 
 @media screen and (min-width: 40rem) {
@@ -27,9 +38,15 @@
     left: 50%;
     top: 50%;
     height: auto;
-    transform: translate(-50%, -50%);
+    transition: all 0.3s;
+    transform: translate(-50%, -150%) scale(0);
+    opacity: 0;
     max-width: 30rem;
     max-height: calc(100% - 1em);
+    &-transition {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
   }
 }
 
@@ -39,19 +56,26 @@
   right: 0;
   padding: 0.5em;
   line-height: 1;
-  background: #f6f6f7;
+  background: #fff;
+  color: $secondary-color;
   border: 0;
   box-shadow: 0;
   cursor: pointer;
+  outline: none;
+  &:hover, &:active {
+    color: darken($secondary-color, 50%);
+  }
 }
 
 ._modal-close-icon {
-  width: 25px;
-  height: 25px;
-  fill: transparent;
-  stroke: black;
-  stroke-linecap: round;
-  stroke-width: 2;
+  background-color: orange;
+  // width: 25px;
+  // height: 25px;
+  // fill: transparent;
+  // stroke: black;
+  // stroke-linecap: round;
+  // stroke-width: 2;
+ 
 }
 
 .modal-body {
@@ -79,4 +103,6 @@
   padding: 0;
   background-color: transparent;
   border: none;
+  line-height: 0.1;
+  outline: none;
 }

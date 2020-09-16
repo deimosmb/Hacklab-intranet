@@ -3,6 +3,7 @@ import { ProfileItem } from "./Profile";
 import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
 import ChangeGenericParticipant from "./../ChangeParticipant/Generic";
 import IconButton from "./../IconButton";
+import { ModalActivation } from "./../../core/Modal";
 import "./index.scss";
 
 const Profile = ({ data }) => {
@@ -20,7 +21,13 @@ const Profile = ({ data }) => {
     <>
       <ParticipantProfileHeader>
         <span>ALGEMENE INFORMATIE</span>
-        <IconButton onClick={handleOnClick} />
+        {/* <IconButton onClick={handleOnClick} /> */}
+        <ModalActivation
+          style={{ paddingBottom: "0.2rem" }}
+          onClick={handleOnClick}
+        >
+          <i className="icon fa fa-edit" />
+        </ModalActivation>
       </ParticipantProfileHeader>
 
       <div className="profile profile-generic">

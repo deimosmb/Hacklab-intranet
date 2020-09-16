@@ -1,11 +1,7 @@
 import React from "react";
+import { toggleScrollLock } from "./index";
 
 export const ModalActivation = ({ children, onClick, ...rest }) => {
-  //prevent scrolling after modal is shown
-  const toggleScrollLock = () => {
-    document.querySelector("html").classList.toggle("scroll-lock");
-  };
-
   const modalClick = () => {
     toggleScrollLock();
     onClick();

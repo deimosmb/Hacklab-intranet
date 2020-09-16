@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
+import { toggleScrollLock } from "./index";
 import "./index.scss";
 
 import { ModalClose } from "./ModalClose";
@@ -7,14 +8,12 @@ import { ModalClose } from "./ModalClose";
 function ModalArea(props) {
   const aria = useRef(null);
 
+  const [active, setActive] = useState(false);
+
   useEffect(() => {
     aria.current.focus();
+    setActive(true);
   }, []);
-
-  //prevent scrolling after modal is shown
-  const toggleScrollLock = () => {
-    document.querySelector("html").classList.toggle("scroll-lock");
-  };
 
   //when clicked on the transparent outside section of the modal
   const onClickOutside = (event) => {
@@ -22,13 +21,19 @@ function ModalArea(props) {
       console.log(aria.current, event.target);
       return;
     }
-    onCloseModal();
+    handleTransition();
+  };
+
+  const handleTransition = () => {
+    setActive(false);
   };
 
   const onCloseModal = () => {
-    props.onClose();
-    toggleScrollLock();
-    aria.current.blur();
+    if (!active) {
+      props.onClose();
+      toggleScrollLock();
+      aria.current.blur();
+    }
   };
 
   //27 === ESC button
@@ -44,20 +49,23 @@ function ModalArea(props) {
       aria-modal="true"
       tabIndex="-1"
       role="dialog"
-      className="modal-container"
+      className={`modal-container ${
+        active ? "modal-container-transition" : ""
+      }  `}
       onKeyDown={onKeyDown}
       onClick={onClickOutside}
     >
       <div
-        className="modal-area"
+        className={`modal-area ${active ? "modal-area-transition" : ""}  `}
+        onTransitionEnd={onCloseModal}
         ref={aria}
-        onFocus={() => console.log("focused")}
+        onFocus={() => console.log("focused", active)}
       >
-        <ModalClose onCloseModal={onCloseModal} />
+        <ModalClose onCloseModal={handleTransition} />
         <div className="modal-body">{props.children}</div>
       </div>
     </aside>,
-    document.body
+    document.getElementById("root")
   );
 }
 

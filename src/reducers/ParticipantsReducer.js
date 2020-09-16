@@ -56,7 +56,7 @@ const reducer = (state = intitialState, action) => {
       return {
         ...state,
         data: state.data.map((participant) => {
-          if (participant.uid.toString() === action.payload.uid) {
+          if (participant.uid.toString() === action.payload.uid.toString()) {
             return { ...participant, ...action.payload };
           }
           return participant;

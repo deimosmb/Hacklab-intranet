@@ -31,7 +31,8 @@ const ParticipantGoal = ({ data }) => {
         {active && <ChangeGenericParticipant {...values} />}
 
         <MessageBlock
-          className={`success ${success ? "message-block-run" : ""}`}
+          onTransitionEnd={() => setSuccess(false)}
+          className={`success ${success ? "message-block-transition" : ""}`}
         >
           <Text className="success">
             Aanpassen van het doel van de deelnemer is gelukt
