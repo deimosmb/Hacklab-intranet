@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./index.scss";
 
 export const Message = ({ children, ...rest }) => (
@@ -6,6 +7,14 @@ export const Message = ({ children, ...rest }) => (
     {children}
   </div>
 );
+
+Message.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  rest: PropTypes.object,
+};
 
 export const MessageBlock = ({ children, ...props }) => {
   const className = props.className
@@ -18,10 +27,33 @@ export const MessageBlock = ({ children, ...props }) => {
   );
 };
 
-export const Text = (props) => (
-  <span className={`message-${props.className}`}>{props.children}</span>
+MessageBlock.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  props: PropTypes.object,
+};
+
+export const Text = ({ className, children }) => (
+  <span className={`message-${className}`}>{children}</span>
 );
 
-export const TextBlock = (props) => (
-  <p className={`text-block`}>{props.children}</p>
+Text.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  className: PropTypes.string,
+};
+
+export const TextBlock = ({ children }) => (
+  <p className={`text-block`}>{children}</p>
 );
+
+TextBlock.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};

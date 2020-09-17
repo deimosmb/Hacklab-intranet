@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./../index.scss";
 import "./index.scss";
 
@@ -74,4 +75,12 @@ export const Select = ({ name, title, setValues, options, ...rest }) => {
       ) : null}
     </div>
   );
+};
+
+Select.propTypes = {
+  name: PropTypes.string,
+  title: PropTypes.string,
+  setValues: PropTypes.func,
+  options: PropTypes.array,
+  rest: PropTypes.object,
 };

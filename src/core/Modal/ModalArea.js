@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { toggleScrollLock } from "./index";
 import "./index.scss";
 
 import { ModalClose } from "./ModalClose";
 
-function ModalArea(props) {
+function ModalArea({ onClose, children }) {
   const aria = useRef(null);
 
   const [active, setActive] = useState(false);
@@ -30,7 +31,7 @@ function ModalArea(props) {
 
   const onCloseModal = () => {
     if (!active) {
-      props.onClose();
+      onClose();
       toggleScrollLock();
       aria.current.blur();
     }
@@ -62,11 +63,20 @@ function ModalArea(props) {
         onFocus={() => console.log("focused", active)}
       >
         <ModalClose onCloseModal={handleTransition} />
-        <div className="modal-body">{props.children}</div>
+        <div className="modal-body">{children}</div>
       </div>
     </aside>,
     document.getElementById("root")
   );
 }
+
+ModalArea.propTypes = {
+  onClose: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  rest: PropTypes.object,
+};
 
 export default ModalArea;
