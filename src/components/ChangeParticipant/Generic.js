@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { Label, TextInput, Button } from "./../../core/Form";
 import { ModalArea } from "./../../core/Modal";
 import { validate } from "./../../core/Validation";
@@ -10,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { changeParticipant } from "../../actions/ParticipantActions";
 
-export default function ChangeGenericParticipant(props) {
+export default function ChangeGenericParticipant({ setActive, active }) {
   const [values, setValues] = useState({});
 
   const { id } = useParams();
@@ -58,7 +59,7 @@ export default function ChangeGenericParticipant(props) {
     });
     setValidationErrors((prev) => ({ prev, ...errors }));
     if (Object.keys(errors).filter((e) => errors[e] !== null).length === 0) {
-      const data = { uid: props.uid, ...values };
+      const data = { uid: id, ...values };
       ChangeParticipantAPI(
         data,
         (json) => {
@@ -69,14 +70,14 @@ export default function ChangeGenericParticipant(props) {
             "Er ging iets mis met het aanpassen van algemene deelnemer gegegevens"
           )
       );
-      return props.setActive(false);
+      return setActive(false);
     }
   };
 
   return (
     <>
-      {props.active ? (
-        <ModalArea onClose={() => props.setActive(!props.active)}>
+      {active ? (
+        <ModalArea onClose={() => setActive(!active)}>
           <form>
             <div
               className="profile profile-generic"
@@ -153,3 +154,8 @@ export default function ChangeGenericParticipant(props) {
     </>
   );
 }
+
+ChangeGenericParticipant.propTypes = {
+  active: PropTypes.bool,
+  setActive: PropTypes.func,
+};

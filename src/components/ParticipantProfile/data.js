@@ -4,6 +4,7 @@ import { GetParticipantsProfile } from "./ParticipantProfileAPI";
 import { useSelector, useDispatch } from "react-redux";
 import "./index.scss";
 import { addParticipant } from "../../actions/ParticipantActions";
+import PropTypes from "prop-types";
 
 const Data = (props) => {
   const { id } = useParams();
@@ -27,6 +28,10 @@ const Data = (props) => {
   }, [data, dispatch, id, props]);
 
   return null;
+};
+
+Data.propTypes = {
+  setData: PropTypes.func,
 };
 
 export default Data;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { TextArea, Button } from "./../../core/Form";
 import { Message, Text } from "./../../core/message";
 import { ChangeProgressApi } from "./../ChangeParticipantProgress/ChangeProgressApi";
@@ -84,4 +85,16 @@ export const ChangeProgress = ({ values, onBlur, setIsActiveClass }) => {
       </div>
     </form>
   );
+};
+
+ChangeProgress.propTypes = {
+  setIsActiveClass: PropTypes.func,
+  onBlur: PropTypes.func,
+  values: PropTypes.shape({
+    uid: PropTypes.string,
+    content: PropTypes.string,
+    // created_at: PropTypes.instanceOf(Date),
+    created_at: PropTypes.string,
+    updated_at: PropTypes.string,
+  }),
 };

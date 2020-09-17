@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { validate, min, required } from "../../core/Validation";
 import { ChangeParticipantAPI } from "./ChangeParticipantAPI";
 import { Message, Text } from "./../../core/message";
@@ -7,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { changeParticipant } from "../../actions/ParticipantActions";
 
-const Purpose = (props) => {
+const Purpose = ({ setSuccess, setActive }) => {
   const [validationErrors, setValidationErrors] = useState({});
 
   const [values, setValues] = useState({});
@@ -66,16 +67,16 @@ const Purpose = (props) => {
         (json) => {
           dispatch(changeParticipant(json));
           console.log(changeParticipant(json));
-          props.setSuccess(true);
+          setSuccess(true);
         },
         () => {
           console.error(
             "Er ging iets mis met het aanpassen van het doel van de deelnemer"
           );
-          props.setSuccess(false);
+          setSuccess(false);
         }
       );
-      return props.setActive(false);
+      return setActive(false);
     }
   };
 
@@ -96,6 +97,11 @@ const Purpose = (props) => {
       </div>
     </form>
   );
+};
+
+Purpose.propTypes = {
+  setSuccess: PropTypes.func,
+  setActive: PropTypes.func,
 };
 
 export default Purpose;

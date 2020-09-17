@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TextBlock } from "./../../core/message";
 import { ChangeProgress } from "./../ChangeParticipantProgress";
+import PropTypes from "prop-types";
 import "./index.scss";
 
 export const ProgressItem = ({ values }) => {
@@ -66,4 +67,16 @@ export const ProgressItem = ({ values }) => {
       {!isActiveClass[uid] && <TextBlock>{content}</TextBlock>}
     </div>
   );
+};
+
+ProgressItem.propTypes = {
+  values: PropTypes.shape({
+    uid: PropTypes.string,
+    content: PropTypes.string,
+    // created_at: PropTypes.instanceOf(Date),
+    created_at: PropTypes.string,
+    updated_at: PropTypes.string,
+    isActiveClass: PropTypes.object,
+    setIsActiveClass: PropTypes.func,
+  }),
 };

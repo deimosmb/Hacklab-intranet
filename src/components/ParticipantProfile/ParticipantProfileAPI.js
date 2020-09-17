@@ -1,37 +1,37 @@
 //later to be replaced by real server json calls
 
-//const existing = localStorage.getItem("participants");
-// if (!existing) {
-//   localStorage.setItem(
-//     "participants",
-//     JSON.stringify([
-//       {
-//         uid: "abrbakadarba",
-//         name: "Martin",
-//         location: "Leeuwarden",
-//         phonenumber: "0612345678",
-//         email: "martin@hacklab.nl",
-//         source: "Gemeente Leeuwarden",
-//         status: "Zoekt naar werk",
-//         purpose: `Dit kan het doel zijn van de deelnemer of andere informatie die betrekking
-//     heeft op de persoon. Zoals andere intresseses naast de skills. Of eerder
-//     informatie besproken met de een organisatie of eerder als kanidaat.`,
-//       },
-//       {
-//         uid: "234242525",
-//         name: "Rik",
-//         location: "Heerenveen",
-//         phonenumber: "0612345678",
-//         email: "Rik@hacklab.nl",
-//         source: "Gemeente Leeuwarden",
-//         status: "Zoekt naar opleiding",
-//         purpose: `Dit kan het doel zijn van de deelnemer of andere informatie die betrekking
-//     heeft op de persoon. Zoals andere intresseses naast de skills. Of eerder
-//     informatie besproken met de een organisatie of eerder als kanidaat.`,
-//       },
-//     ])
-//   );
-// }
+const existing = localStorage.getItem("participants");
+if (!existing) {
+  localStorage.setItem(
+    "participants",
+    JSON.stringify([
+      {
+        uid: "abrbakadarba",
+        name: "Martin",
+        location: "Leeuwarden",
+        phonenumber: "0612345678",
+        email: "martin@hacklab.nl",
+        source: "Gemeente Leeuwarden",
+        status: "Zoekt naar werk",
+        purpose: `Dit kan het doel zijn van de deelnemer of andere informatie die betrekking
+    heeft op de persoon. Zoals andere intresseses naast de skills. Of eerder
+    informatie besproken met de een organisatie of eerder als kanidaat.`,
+      },
+      {
+        uid: "234242525",
+        name: "Rik",
+        location: "Heerenveen",
+        phonenumber: "0612345678",
+        email: "Rik@hacklab.nl",
+        source: "Gemeente Leeuwarden",
+        status: "Zoekt naar opleiding",
+        purpose: `Dit kan het doel zijn van de deelnemer of andere informatie die betrekking
+    heeft op de persoon. Zoals andere intresseses naast de skills. Of eerder
+    informatie besproken met de een organisatie of eerder als kanidaat.`,
+      },
+    ])
+  );
+}
 export const GetParticipantsProfile = (callback, error, uid) => {
   const response = localStorage.getItem("participants");
   if (response) {

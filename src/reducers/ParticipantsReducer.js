@@ -1,7 +1,7 @@
 const intitialState = {
   data: [],
   status: false,
-  debug: true,
+  debug: false,
 };
 
 const reducer = (state = intitialState, action) => {
@@ -56,7 +56,7 @@ const reducer = (state = intitialState, action) => {
       return {
         ...state,
         data: state.data.map((participant) => {
-          if (participant.uid.toString() === action.payload.uid.toString()) {
+          if (participant.uid === action.payload.uid) {
             return { ...participant, ...action.payload };
           }
           return participant;

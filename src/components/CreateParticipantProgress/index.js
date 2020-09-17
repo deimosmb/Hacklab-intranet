@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { TextArea, Button } from "./../../core/Form";
 import { Message, Text } from "./../../core/message";
 import { CreateParticipantProgressApi } from "./CreateParticipantProgressApi";
@@ -76,3 +77,8 @@ export default function CreateParticipantPogress({ setActive, active }) {
     </form>
   );
 }
+
+CreateParticipantPogress.propTypes = {
+  active: PropTypes.bool,
+  setActive: PropTypes.func,
+};

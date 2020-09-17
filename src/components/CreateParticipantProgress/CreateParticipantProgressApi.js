@@ -8,7 +8,7 @@ export const CreateParticipantProgressApi = (
   const existing = localStorage.getItem("participantprogress");
   const datas = existing ? JSON.parse(existing) : [];
   const date = new Date();
-  values.uid = Date.now();
+  values.uid = Date.now().toString();
   values.created_at = date.toLocaleDateString();
   const { id, ...restvalues } = values;
   localStorage.setItem(

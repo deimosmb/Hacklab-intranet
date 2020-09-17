@@ -29,7 +29,7 @@
   width: 100%;
   opacity: 0;
   visibility: hidden;
-  transition: transform .5s, visibility .5s, opacity .5s;
+  transition: transform .3s, visibility .3s, opacity .3s;
   white-space: nowrap;
   overflow: hidden;
   transform: translate(0%, 50%);
@@ -47,27 +47,24 @@
 }
 
 .message-block-transition {
-  transition: transform .5s, visibility .5s, opacity .5s;
+  transition: transform .3s, visibility .3s, opacity .3s;
   opacity: 1;
   visibility: visible;
   width: 100%;
   transform: translate(0%, 0%);
+
 }
 
 @media only screen and (min-width: 40rem) {
   .message-block {
     position: absolute;
     width: auto;
-    bottom: 0;
-    right: 0;
     transform: translate(50%, 0%);
   }
 
   .message-block-transition {
-    transform: translate(-0%, 0%);
+    transform: translate(0%, 0%);
     width: auto;
-    bottom: 0;
-    right: 0;
   }
 }
 

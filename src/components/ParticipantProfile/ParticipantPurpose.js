@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
 import { ProfileItem } from "./Profile";
 import ChangeGenericParticipant from "./../ChangeParticipant/Purpose";
@@ -41,6 +42,14 @@ const ParticipantGoal = ({ data }) => {
       </div>
     </>
   );
+};
+
+ParticipantGoal.propTypes = {
+  data: PropTypes.shape({
+    uid: PropTypes.string,
+    name: PropTypes.string,
+    purpose: PropTypes.string,
+  }),
 };
 
 export default ParticipantGoal;

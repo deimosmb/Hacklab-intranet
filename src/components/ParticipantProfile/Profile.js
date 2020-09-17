@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const ProfileItem = (props) => (
   <div className="profile-data">
@@ -6,3 +7,8 @@ export const ProfileItem = (props) => (
     {props.name}
   </div>
 );
+
+ProfileItem.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+};

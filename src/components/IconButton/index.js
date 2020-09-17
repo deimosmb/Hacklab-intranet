@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./index.scss";
 
-export default ({ icon, onClick, ...rest }) => {
+const IconButton = ({ icon, onClick, ...rest }) => {
   const handleOnMouseDown = (event) => {
     event.preventDefault();
   };
@@ -17,3 +18,11 @@ export default ({ icon, onClick, ...rest }) => {
     ></i>
   );
 };
+
+IconButton.propTypes = {
+  icon: PropTypes.string,
+  onClick: PropTypes.func,
+  rest: PropTypes.object,
+};
+
+export default IconButton;

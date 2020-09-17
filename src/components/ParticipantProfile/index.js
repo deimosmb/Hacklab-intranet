@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { ProfileItem } from "./Profile";
 import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
 import ChangeGenericParticipant from "./../ChangeParticipant/Generic";
-import IconButton from "./../IconButton";
 import { ModalActivation } from "./../../core/Modal";
 import "./index.scss";
 
@@ -41,6 +41,17 @@ const Profile = ({ data }) => {
       <ChangeGenericParticipant {...changedData} />
     </>
   );
+};
+
+Profile.propTypes = {
+  data: PropTypes.shape({
+    uid: PropTypes.string,
+    phonenumber: PropTypes.string,
+    email: PropTypes.string,
+    location: PropTypes.string,
+    source: PropTypes.string,
+    status: PropTypes.string,
+  }),
 };
 
 export default Profile;

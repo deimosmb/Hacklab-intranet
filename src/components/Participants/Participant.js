@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./index.scss";
 
 export const Participant = ({ name, location, startdate, status, onClick }) => (
@@ -15,3 +16,12 @@ export const Participant = ({ name, location, startdate, status, onClick }) => (
     <span className="fa fa-angle-right" />
   </div>
 );
+
+Participant.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+  location: PropTypes.string,
+  startdate: PropTypes.string,
+  status: PropTypes.string,
+  onClick: PropTypes.func,
+};

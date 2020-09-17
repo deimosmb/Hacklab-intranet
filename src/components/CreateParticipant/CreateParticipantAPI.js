@@ -6,7 +6,7 @@ export const CreateParticipantAPI = (values, callback, error) => {
   const existing = localStorage.getItem("participants");
   const data = existing ? JSON.parse(existing) : [];
   //create an uid with date.now wich is unique
-  values.uid = Date.now();
+  values.uid = Date.now().toString();
   //stringify the new values, spread the data over the array and add the new
   //value object into the localstorage
   localStorage.setItem("participants", JSON.stringify([...data, values]));
