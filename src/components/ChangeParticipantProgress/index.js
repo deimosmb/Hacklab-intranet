@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { TextArea, Button } from "./../../core/Form";
+import { ModalArea } from "./../../core/Modal";
 import { Message, Text } from "./../../core/message";
 import { ChangeProgressApi } from "./../ChangeParticipantProgress/ChangeProgressApi";
 import { validate, required, min } from "./../../core/Validation";
 import { useDispatch } from "react-redux";
 import { changeProgress } from "../../actions/ProgressActions";
 
-export const ChangeProgress = ({ values, onBlur, setIsActiveClass }) => {
+export const ChangeProgress = ({
+  values,
+  onBlur,
+  setIsActiveClass,
+  isActiveClass,
+}) => {
   const { uid, content, created_at, updated_at } = values;
 
   const dispatch = useDispatch();
@@ -64,36 +70,45 @@ export const ChangeProgress = ({ values, onBlur, setIsActiveClass }) => {
   };
 
   return (
-    <form onSubmit={onChangeProgressContent}>
-      <TextArea
-        style={{ height: "9rem" }}
-        autoFocus
-        value={value}
-        onChange={handleOnChange}
-        onBlur={onBlur}
-        name="content"
-      />
-      <div className="progress-footer">
-        <Message>
-          <Text className="error">{validationErrors.content}</Text>
-        </Message>
-        <Button
-          name="Aanpassen"
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={onChangeProgressContent}
-        ></Button>
-      </div>
-    </form>
+    <>
+      {isActiveClass ? (
+        <ModalArea onClose={() => setIsActiveClass({ [uid]: false })}>
+          <form onSubmit={onChangeProgressContent}>
+            <TextArea
+              style={{ height: "9rem" }}
+              autoFocus
+              value={value}
+              onChange={handleOnChange}
+              onBlur={onBlur}
+              name="content"
+            />
+            <div className="progress-footer">
+              <Message>
+                <Text className="error">{validationErrors.content}</Text>
+              </Message>
+              <Button
+                name="Aanpassen"
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={onChangeProgressContent}
+              ></Button>
+            </div>
+          </form>
+        </ModalArea>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
 ChangeProgress.propTypes = {
   setIsActiveClass: PropTypes.func,
+  isActiveClass: PropTypes.object,
   onBlur: PropTypes.func,
   values: PropTypes.shape({
     uid: PropTypes.string,
     content: PropTypes.string,
-    // created_at: PropTypes.instanceOf(Date),
+    // created_at: PropTypes.instanceOf(Date),v
     created_at: PropTypes.string,
     updated_at: PropTypes.string,
   }),

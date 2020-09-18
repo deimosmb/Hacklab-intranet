@@ -62,6 +62,7 @@ export const ProgressItem = ({ values }) => {
           values={values}
           onBlur={handleOnClick}
           setIsActiveClass={setIsActiveClass}
+          isActiveClass={isActiveClass}
         />
       )}
       {!isActiveClass[uid] && <TextBlock>{content}</TextBlock>}

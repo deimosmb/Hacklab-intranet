@@ -19,9 +19,9 @@ function ModalArea({ onClose, children }) {
   //when clicked on the transparent outside section of the modal
   const onClickOutside = (event) => {
     if (aria.current && aria.current.contains(event.target)) {
-      console.log(aria.current, event.target);
       return;
     }
+    //toggleScrollLock();
     handleTransition();
   };
 

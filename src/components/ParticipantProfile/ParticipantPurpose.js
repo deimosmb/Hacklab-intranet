@@ -9,14 +9,27 @@ import "./index.scss";
 
 const ParticipantGoal = ({ data }) => {
   const [active, setActive] = useState(false);
+  const [counter, setCounter] = useState(0);
   const [success, setSuccess] = useState(false);
+  //const MessageBlockRef = useRef(null);
+  const [transition, setTransition] = useState("message-block-transition");
   //const [validationErrors, setValidationErrors] = useState({});
 
   const handleOnClick = () => {
+    //if (counter === 0 || counter === 5) {
+    // MessageBlockRef.current.transitionstart = () => console.log("STARED");
+    // console.log(MessageBlockRef.current);
+    //MessageBlockRef.current.transitionCancel();
+    // console.log(transition);
+    // setTransition("");
     setActive(!active);
+
+    //}
   };
+
   const { name, purpose } = data;
   const values = {
+    setTransition,
     setActive,
     setSuccess,
   };
@@ -32,11 +45,15 @@ const ParticipantGoal = ({ data }) => {
         {active && <ChangeGenericParticipant {...values} />}
 
         <MessageBlock
-          onTransitionEnd={() => setSuccess(false)}
-          className={`success ${success ? "message-block-transition" : ""}`}
+          onTransitionEnd={() => {
+            setSuccess(false);
+            setCounter((prev) => (prev === 5 ? 0 : (prev += 1)));
+            console.log("SUCCCESS", success, counter);
+          }}
+          className={`success ${success ? transition : ""}`}
         >
           <Text className="success">
-            Aanpassen van het doel van de deelnemer is gelukt
+            {`Aanpassen van het doel van de deelnemer ${name} is gelukt`}
           </Text>
         </MessageBlock>
       </div>

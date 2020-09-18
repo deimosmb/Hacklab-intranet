@@ -1,4 +1,5 @@
 import React from "react";
+//import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "./index.scss";
 
@@ -20,10 +21,12 @@ export const MessageBlock = ({ children, ...props }) => {
   const className = props.className
     ? `message-block message-block-${props.className}`
     : "message-block";
+  //return ReactDOM.createPortal
   return (
     <div {...props} className={className}>
       {children}
     </div>
+    //,document.getElementById("root")
   );
 };
 

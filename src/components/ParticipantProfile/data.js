@@ -6,7 +6,7 @@ import "./index.scss";
 import { addParticipant } from "../../actions/ParticipantActions";
 import PropTypes from "prop-types";
 
-const Data = (props) => {
+const Data = ({ setData }) => {
   const { id } = useParams();
 
   const { data } = useSelector((state) => state.ParticipantsReducer);
@@ -15,17 +15,17 @@ const Data = (props) => {
 
   useEffect(() => {
     if (data && data.filter((p) => p.uid.toString() === id)[0]) {
-      return props.setData(data.filter((p) => p.uid.toString() === id)[0]);
+      return setData(data.filter((p) => p.uid.toString() === id)[0]);
     }
     GetParticipantsProfile(
       (json) => {
-        props.setData(json);
+        setData(json);
         dispatch(addParticipant(json));
       },
       (error) => console.log(error),
       id
     );
-  }, [data, dispatch, id, props]);
+  }, [data, dispatch, id, setData]);
 
   return null;
 };

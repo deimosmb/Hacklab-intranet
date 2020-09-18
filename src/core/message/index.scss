@@ -30,7 +30,6 @@
   opacity: 0;
   visibility: hidden;
   transition: transform .3s, visibility .3s, opacity .3s;
-  white-space: nowrap;
   overflow: hidden;
   transform: translate(0%, 50%);
   transition-delay: 2s;
@@ -60,6 +59,13 @@
     position: absolute;
     width: auto;
     transform: translate(50%, 0%);
+    top: -1rem;
+    bottom: auto;
+    white-space: nowrap;
+    &-success {
+      border: none;
+      border-right: $color-success 3px solid;
+    }
   }
 
   .message-block-transition {
