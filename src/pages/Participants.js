@@ -1,10 +1,14 @@
 import React from "react";
-import Participants from "./../components/Participants";
+import {
+  ParticipantsList,
+  ParticipantsHeader,
+} from "./../components/Participants";
 
 function ParticipantsPage() {
   return (
     <section>
-      <Participants />
+      <ParticipantsHeader />
+      <ParticipantsList />
     </section>
   );
 }

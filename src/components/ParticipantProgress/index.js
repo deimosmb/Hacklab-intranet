@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Notification } from "./../../core/Notification";
 import { ParticipantProgressApi } from "./ParticipantProgressApi";
 import { ProgressItem } from "./ProgressItem";
 import CreateParticipantProgress from "./../CreateParticipantProgress";
@@ -12,10 +13,11 @@ function ParticipantsProgress() {
   const progress = useSelector((state) => state.ProgressReducer.data);
   const dispatch = useDispatch();
   const [isActiveClass, setIsActiveClass] = useState({});
+  const [success, setSuccess] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
-    if (progress.filter((a) => a.participantId === id).length === 0) {
+    if (progress.filter((a) => a.participant_id === id).length === 0) {
       ParticipantProgressApi(
         (json) => {
           dispatch(addProgress(json));
@@ -40,14 +42,28 @@ function ParticipantsProgress() {
         </button>
       </ParticipantProfileHeader>
       <CreateParticipantProgress active={active} setActive={setActive} />
-      {progress.filter((a) => a.participantId === id).length === 0
+      {success && (
+        <Notification
+          className="participant-progress-notification-error"
+          onAnimationEnd={() => setSuccess(false)}
+          color="success"
+          message="Verwijderen van voorgangs notitie is gelukt!"
+        />
+      )}
+      {progress.filter((a) => a.participant_id === id).length === 0
         ? "Er is nog geen voortang van deze deelnemer toegevoegd. Klik op nieuwe notitie om voortang toe te voegen"
         : progress
-            .filter((a) => a.participantId === id)
+            .filter((a) => a.participant_id === id)
             .map((value) => (
               <ProgressItem
                 key={value.uid}
-                values={{ isActiveClass, setIsActiveClass, ...value }}
+                values={{
+                  isActiveClass,
+                  setIsActiveClass,
+                  success,
+                  setSuccess,
+                  ...value,
+                }}
               />
             ))}
     </div>

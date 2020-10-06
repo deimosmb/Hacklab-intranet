@@ -25,8 +25,13 @@
   display: none;
 }
 
+.participant-progress-notification-error {
+  top: 3.125rem;
+}
+
 .progress {
   margin-bottom: 2rem;
+  position: relative;
 
   &-item {
     position: relative;

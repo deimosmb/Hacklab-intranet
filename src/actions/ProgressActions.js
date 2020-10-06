@@ -9,3 +9,10 @@ export const changeProgress = (payload) => {
     payload,
   };
 };
+
+export const removeProgress = (payload) => {
+  return {
+    type: "REMOVE_PROGRESS",
+    payload,
+  };
+};

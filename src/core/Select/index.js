@@ -5,11 +5,11 @@ import "./index.scss";
 
 const List = ({ options, onClick, onMouseDown }) => (
   <div className="selectlist">
-    {options.map((o) => (
+    {options.map((o, index) => (
       <div
-        key={o.id}
+        key={index}
         id={o.name}
-        onClick={() => onClick(o.name)}
+        onClick={() => onClick(o)}
         onMouseDown={onMouseDown}
       >
         {o.name}
@@ -18,17 +18,19 @@ const List = ({ options, onClick, onMouseDown }) => (
   </div>
 );
 
-export const Select = ({ name, title, setValues, options, ...rest }) => {
+export const Select = ({ name, title, options, setValues, ...rest }) => {
   const [active, setActive] = useState(false);
 
-  const [value, setvalue] = useState(rest.value);
+  const [value, setValue] = useState(
+    rest.value === undefined ? { name: "" } : rest.value
+  );
 
   useEffect(() => {
-    setValues((prevstate) => {
-      return { ...prevstate, location: value };
-    });
+    if (rest.value === undefined && value.name === "") {
+      setValue(options[0] ?? { name: "" });
+    }
     setActive(false);
-  }, [setValues, value]);
+  }, [options, rest.value, value]);
 
   const handleFocus = () => {
     setActive(!active);
@@ -39,7 +41,10 @@ export const Select = ({ name, title, setValues, options, ...rest }) => {
   };
 
   const handleOnClick = (i) => {
-    setvalue(i);
+    //setvalues prop for usestate in create a new something
+    setValues(i);
+    //setvalue to display the clicked value in the list
+    setValue(i);
     setActive(false);
   };
 
@@ -59,6 +64,7 @@ export const Select = ({ name, title, setValues, options, ...rest }) => {
       <div className="selectinput" id="select" onClick={handleFocus}>
         <input
           {...rest}
+          value={value.name}
           readOnly={true}
           id={name}
           name={name}

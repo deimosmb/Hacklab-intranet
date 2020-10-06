@@ -33,6 +33,15 @@ const reducer = (state = intitialState, action) => {
           return progress;
         }),
       };
+    case "REMOVE_PROGRESS":
+      return {
+        ...state,
+        data: state.data.filter(
+          (progress) =>
+            progress.uid !== action.payload.uid &&
+            progress.particpant_id === action.payload.particpant_id
+        ),
+      };
     default:
       return state;
   }

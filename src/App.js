@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import NewParticipant from "./pages/NewParticipant";
+import NewLocationPage from "./pages/NewLocationPage";
 import ParticapantProfilePage from "./pages/ParticapantProfilePage";
+import ShowLocationPage from "./pages/ShowLocationPage";
 import ParticapantsPage from "./pages/Participants";
+import LocationsPage from "./pages/LocationsPage";
 import { ParticipantsContextProvider } from "./context/participants-context";
 import "./App.scss";
 
@@ -16,6 +19,7 @@ function App() {
           <Link to="/">
             <h1 className="fa fa-flask">HACKLAB</h1>
           </Link>
+          <Link to="/locaties">Locaties</Link>
         </nav>
       </header>
       <main className="App">
@@ -23,9 +27,11 @@ function App() {
           <ParticipantsContextProvider>
             <Switch>
               <Route path="/" exact component={ParticapantsPage} />
+              <Route path="/locaties" exact component={LocationsPage} />
               <Route path="/deelnemer/:id" component={ParticapantProfilePage} />
-              {/* <Route path="/" exact render={() => <h1>Hello there</h1>} /> */}
+              <Route path="/locatie/:name" component={ShowLocationPage} />
               <Route path="/nieuwedeelnemer" component={NewParticipant} />
+              <Route path="/nieuwelocatie" component={NewLocationPage} />
 
               <Route
                 render={() => (

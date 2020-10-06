@@ -4,8 +4,8 @@
   font-size: 0.8rem;
   margin: 0;
   padding: 0;
-  padding-top: 0.25rem;
-  line-height: 1.1;
+  //padding-top: 0.25rem;
+  line-height: 1.5;
   min-height: 0.8rem;
 }
 
@@ -14,8 +14,29 @@
   &-error {
     color: $color-error;
   }
+  &-warning {
+    color: $color-warning;
+  }
   &-success {
     color: $color-success;
+  }
+}
+
+
+.message-flat {
+  @extend .message-basic;
+  padding-left: 0.25rem;
+  &-error {
+    color: $color-error;
+    background-color: $background-color-error;
+  }
+  &-warning {
+    color: $color-warning;
+    background-color: $background-color-warning;
+  }
+  &-success {
+    color: $color-success;
+    background-color: $background-color-success;
   }
 }
 
@@ -29,14 +50,20 @@
   width: 100%;
   opacity: 0;
   visibility: hidden;
-  transition: transform .3s, visibility .3s, opacity .3s;
   overflow: hidden;
   transform: translate(0%, 50%);
-  transition-delay: 2s;
+  animation-name: messageBlock;
+  animation-duration: 3.5s;
+  //animation-play-state: paused;
   &-error {
     background-color: $background-color-error;
     border-left: $color-error 3px solid;
     color: $color-error;
+  }
+  &-warning {
+    background-color: $background-color-warning;
+    border-left: $color-warning 3px solid;
+    color: $color-warning;
   }
   &-success {
     background-color: $background-color-success;
@@ -45,40 +72,55 @@
   }
 }
 
-.message-block-transition {
-  transition: transform .3s, visibility .3s, opacity .3s;
-  opacity: 1;
-  visibility: visible;
-  width: 100%;
-  transform: translate(0%, 0%);
-
+@keyframes messageBlock {
+  0%, 100%  {
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;;
+    transform: translate(0%, 50%);
+  }
+  25%, 50%, 75% { 
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    transform: translate(0%, 0%);
+  }
 }
 
 @media only screen and (min-width: 40rem) {
   .message-block {
     position: absolute;
     width: auto;
+    min-width: 15rem;
     transform: translate(50%, 0%);
-    top: -1rem;
+    top: 0;
     bottom: auto;
     white-space: nowrap;
+    animation-duration: 3.5s;
     &-success {
       border: none;
       border-right: $color-success 3px solid;
     }
   }
 
-  .message-block-transition {
-    transform: translate(0%, 0%);
-    width: auto;
+  @keyframes messageBlock {
+    0%, 100%   {
+      opacity: 0;
+      visibility: hidden;
+      width: auto;
+      transform: translate(50%, 0%);
+    }
+    25%, 50%, 75%  { 
+      opacity: 1;
+      visibility: visible;
+      width: auto;
+      transform: translate(0%, 0%);
+    }
   }
 }
-
-
 
 .text-block {
   font-family: 'Open Sans';
   margin: 0;
   color: $primary-text-color;
 }
-

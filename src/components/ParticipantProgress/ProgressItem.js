@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { TextBlock } from "./../../core/message";
+import { Notification } from "./../../core/Notification";
 import { ChangeProgress } from "./../ChangeParticipantProgress";
 import PropTypes from "prop-types";
 import "./index.scss";
+import { RemoveParticipantProgress } from "../RemoveParticipantProgress";
 
 export const ProgressItem = ({ values }) => {
   const {
@@ -10,8 +12,11 @@ export const ProgressItem = ({ values }) => {
     content,
     created_at,
     updated_at,
+    participant_id,
     isActiveClass,
     setIsActiveClass,
+    success,
+    setSuccess,
   } = values;
 
   useEffect(() => {
@@ -20,8 +25,17 @@ export const ProgressItem = ({ values }) => {
 
   const [isShown, setIsShown] = useState(false);
 
+  const [successChange, setSuccessChange] = useState(false);
+
+  const [isActiveConfirm, setIsActiveConfirm] = useState(false);
+
   const handleOnMouseDown = (event) => {
     event.preventDefault();
+  };
+
+  const handleOnClickRemove = () => {
+    setSuccess(false);
+    setIsActiveConfirm(!isActiveConfirm);
   };
 
   const handleOnClick = () => {
@@ -33,6 +47,7 @@ export const ProgressItem = ({ values }) => {
       return { ...prev, [uid]: prevuid ? false : true };
     });
     setIsShown(false);
+    setSuccessChange(false);
   };
 
   return (
@@ -43,6 +58,14 @@ export const ProgressItem = ({ values }) => {
         setIsShown(false);
       }}
     >
+      {successChange && (
+        <Notification
+          type="block"
+          onAnimationEnd={() => setSuccessChange(false)}
+          color="success"
+          message="Aanpassen van voorgangs notitie is gelukt!"
+        />
+      )}
       <header className="progress-item-header">
         {isShown && (
           <div className="edit">
@@ -51,21 +74,40 @@ export const ProgressItem = ({ values }) => {
               onMouseDown={handleOnMouseDown}
               onClick={handleOnClick}
             ></i>
-            <i className="fa fa-trash"></i>
+            <i
+              className="fa fa-trash"
+              onMouseDown={handleOnMouseDown}
+              onClick={handleOnClickRemove}
+            ></i>
           </div>
         )}
         <span>{created_at}</span>
         <span>{updated_at ?? null}</span>
       </header>
+      {isActiveConfirm ? (
+        <RemoveParticipantProgress
+          values={{
+            setSuccess,
+            success,
+            isActiveConfirm,
+            setIsActiveConfirm,
+            uid,
+            participant_id,
+          }}
+        />
+      ) : (
+        <></>
+      )}
       {isActiveClass[uid] && (
         <ChangeProgress
           values={values}
           onBlur={handleOnClick}
+          setSuccessChange={setSuccessChange}
           setIsActiveClass={setIsActiveClass}
           isActiveClass={isActiveClass}
         />
       )}
-      {!isActiveClass[uid] && <TextBlock>{content}</TextBlock>}
+      <TextBlock>{content}</TextBlock>
     </div>
   );
 };
@@ -79,5 +121,7 @@ ProgressItem.propTypes = {
     updated_at: PropTypes.string,
     isActiveClass: PropTypes.object,
     setIsActiveClass: PropTypes.func,
+    setSuccess: PropTypes.func,
+    success: PropTypes.bool,
   }),
 };

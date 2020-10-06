@@ -5,34 +5,30 @@ import { ModalArea } from "./../../core/Modal";
 import { validate } from "./../../core/Validation";
 import { participantValidationRules } from "./../CreateParticipant";
 import { ChangeParticipantAPI } from "./ChangeParticipantAPI";
-import { Select } from "./../../core/Select";
+import { LocationSelect } from "./../LocationSelect";
 import { Message, Text } from "./../../core/message";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { changeParticipant } from "../../actions/ParticipantActions";
 
-export default function ChangeGenericParticipant({ setActive, active }) {
+export default function ChangeGenericParticipant({
+  setActive,
+  active,
+  setSuccess,
+  success,
+  data,
+}) {
   const [values, setValues] = useState({});
 
   const { id } = useParams();
 
-  const { data } = useSelector((state) => state.ParticipantsReducer);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const dataValues = data.filter((d) => d.uid.toString() === id);
-    setValues({
-      ...dataValues[0],
-    });
-  }, [data, id]);
+    setValues({ ...data });
+  }, [data]);
 
   const [validationErrors, setValidationErrors] = useState({});
-
-  const options = [
-    { name: "Leeuwarden", id: "jshdfkjshf" },
-    { name: "Heerenveen", id: "jshdfk1shf" },
-  ];
 
   const { status, source, phonenumber, email } = participantValidationRules;
   const rules = { status, source, phonenumber, email };
@@ -63,6 +59,9 @@ export default function ChangeGenericParticipant({ setActive, active }) {
       ChangeParticipantAPI(
         data,
         (json) => {
+          console.log(success);
+          setActive(false);
+          setSuccess(true);
           dispatch(changeParticipant(json));
         },
         () =>
@@ -77,18 +76,18 @@ export default function ChangeGenericParticipant({ setActive, active }) {
   return (
     <>
       {active ? (
-        <ModalArea onClose={() => setActive(!active)}>
+        <ModalArea onClose={() => setActive(!active)} transist={success}>
           <form>
             <div
               className="profile profile-generic"
-              style={{ paddingTop: "1rem" }}
+              style={{ paddingTop: "0rem" }}
             >
-              <Select
-                title="Hacklab locatie"
-                name="location"
-                value={values.location}
+              <h2>ALGEMENE INFORMATIE - {values.location_id}</h2>
+
+              <LocationSelect
+                values={values}
                 setValues={setValues}
-                options={options}
+                value={values.location_id}
               />
               <Label htmlFor="status">
                 Status
@@ -100,7 +99,7 @@ export default function ChangeGenericParticipant({ setActive, active }) {
                   value={values.status ?? ""}
                 />
                 <Message>
-                  <Text className="error">{validationErrors.status}</Text>
+                  <Text color="error">{validationErrors.status}</Text>
                 </Message>
               </Label>
               <Label htmlFor="source">
@@ -113,7 +112,7 @@ export default function ChangeGenericParticipant({ setActive, active }) {
                   value={values.source ?? ""}
                 />
                 <Message>
-                  <Text className="error">{validationErrors.source}</Text>
+                  <Text color="error">{validationErrors.source}</Text>
                 </Message>
               </Label>
               <Label htmlFor="phonenumber">
@@ -126,7 +125,7 @@ export default function ChangeGenericParticipant({ setActive, active }) {
                   value={values.phonenumber ?? ""}
                 />
                 <Message>
-                  <Text className="error">{validationErrors.phonenumber}</Text>
+                  <Text color="error">{validationErrors.phonenumber}</Text>
                 </Message>
               </Label>
               <Label htmlFor="email">
@@ -139,7 +138,7 @@ export default function ChangeGenericParticipant({ setActive, active }) {
                   value={values.email ?? ""}
                 />
                 <Message>
-                  <Text className="error">{validationErrors.email}</Text>
+                  <Text color="error">{validationErrors.email}</Text>
                 </Message>
               </Label>
             </div>
@@ -158,4 +157,7 @@ export default function ChangeGenericParticipant({ setActive, active }) {
 ChangeGenericParticipant.propTypes = {
   active: PropTypes.bool,
   setActive: PropTypes.func,
+  setSuccess: PropTypes.func,
+  success: PropTypes.bool,
+  data: PropTypes.object,
 };

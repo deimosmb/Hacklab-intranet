@@ -14,6 +14,9 @@ export const participantValidationRules = {
     (v) => required(v, "Het doel mag niet leeg zijn!"),
     (v) => min(v, 20),
   ],
+  location_id: [
+    (v) => required(v, "Er moet wel een locatie geselecteerd worden"),
+  ],
   status: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
   source: [(v) => itCanBeEmtpty(v, () => min(v, 3))],
   phonenumber: [(v) => itCanBeEmtpty(v, () => phonenumber(v))],

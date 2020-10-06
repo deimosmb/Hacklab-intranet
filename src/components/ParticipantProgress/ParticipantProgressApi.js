@@ -23,7 +23,7 @@ export const ParticipantProgressApi = (callback, error, uid) => {
       : localStorage.setItem("participantprogress", JSON.stringify([]));
   if (response) {
     const jsonFilter = JSON.parse(response).filter(
-      (p) => p.participantId.toString() === uid
+      (p) => p.participant_id === uid
     );
     if (jsonFilter.length > 0) {
       const json = jsonFilter;

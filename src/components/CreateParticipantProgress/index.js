@@ -14,7 +14,7 @@ export default function CreateParticipantPogress({ setActive, active }) {
 
   const { id } = useParams();
 
-  const [data, setData] = useState({ participantId: id, content: "" });
+  const [data, setData] = useState({ participant_id: id, content: "" });
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleChange = (event) => {
@@ -70,7 +70,7 @@ export default function CreateParticipantPogress({ setActive, active }) {
       />
       <div className="progress-footer">
         <Message>
-          <Text className="error">{validationErrors.content}</Text>
+          <Text color="error">{validationErrors.content}</Text>
         </Message>
         <Button name="TOEVOEGEN" className="button-small progress-button" />
       </div>

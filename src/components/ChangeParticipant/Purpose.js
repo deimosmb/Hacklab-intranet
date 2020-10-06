@@ -56,7 +56,6 @@ const Purpose = ({ setSuccess, setActive }) => {
       validate({ name, value: values[name], rules: rules, errors });
     });
     setValidationErrors((prev) => ({ prev, ...errors, success: false }));
-    console.log(values);
     //error is set to null when a rule[s] are passed
     const success =
       Object.keys(errors).filter((e) => errors[e] !== null).length === 0;
@@ -66,7 +65,6 @@ const Purpose = ({ setSuccess, setActive }) => {
         data,
         (json) => {
           dispatch(changeParticipant(json));
-          console.log(changeParticipant(json));
           setSuccess(true);
         },
         () => {
@@ -90,7 +88,7 @@ const Purpose = ({ setSuccess, setActive }) => {
         value={values.purpose}
       />
       <Message>
-        <Text className="error">{validationErrors.purpose}</Text>
+        <Text color="error">{validationErrors.purpose}</Text>
       </Message>
       <div style={{ display: "flex", justifyContent: "end" }}>
         <Button name="AANPASSEN" onClick={handleSubmit} />

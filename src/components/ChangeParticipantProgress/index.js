@@ -13,6 +13,7 @@ export const ChangeProgress = ({
   onBlur,
   setIsActiveClass,
   isActiveClass,
+  setSuccessChange,
 }) => {
   const { uid, content, created_at, updated_at } = values;
 
@@ -60,6 +61,7 @@ export const ChangeProgress = ({
           values,
           (json) => {
             dispatch(changeProgress(json));
+            setSuccessChange(true);
           },
           (error) => console.error(error)
         );
@@ -84,7 +86,7 @@ export const ChangeProgress = ({
             />
             <div className="progress-footer">
               <Message>
-                <Text className="error">{validationErrors.content}</Text>
+                <Text color="error">{validationErrors.content}</Text>
               </Message>
               <Button
                 name="Aanpassen"

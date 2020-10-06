@@ -5,24 +5,22 @@ import { validate } from "./../../core/Validation";
 import { participantValidationRules } from "./index";
 import { CreateParticipantAPI } from "./CreateParticipantAPI";
 import { useDispatch } from "react-redux";
-import { Select } from "./../../core/Select";
+import { LocationSelect } from "./../LocationSelect";
 import { Message, Text } from "./../../core/message";
-import { addParticipant } from "../../actions/ParticipantActions";
+import {
+  addParticipant,
+  changeParticipantSuccessState,
+} from "../../actions/ParticipantActions";
 
 export default function CreateNewParticipant() {
   const dispatch = useDispatch();
 
   const history = useHistory();
 
-  const options = [
-    { name: "Leeuwarden", id: "jshdfkjshf" },
-    { name: "Heerenveen", id: "jshdfk1shf" },
-  ];
-
   const [values, setValues] = useState({
     name: "",
     purpose: "",
-    location: options[0].name,
+    location_id: "",
     source: "",
     startdate: "",
     email: "",
@@ -62,17 +60,20 @@ export default function CreateNewParticipant() {
     });
     setValidationErrors((prev) => ({ prev, ...errors }));
     if (Object.keys(errors).filter((e) => errors[e] !== null).length === 0) {
-      console.log("Values", values);
+      const { location, ...restValues } = values;
       CreateParticipantAPI(
-        values,
+        restValues,
         (json) => {
           dispatch(addParticipant(json));
+          dispatch(changeParticipantSuccessState());
           return history.push(`/deelnemer/${json.uid}`);
         },
         (error) => console.log(error)
       );
     }
   };
+
+  console.log("VALUESVALUESVALUES", values);
 
   return (
     <form>
@@ -86,7 +87,7 @@ export default function CreateNewParticipant() {
           value={values.name}
         />
         <Message>
-          <Text className="error">{validationErrors.name}</Text>
+          <Text color="error">{validationErrors.name}</Text>
         </Message>
       </Label>
       <Label htmlFor="purpose">
@@ -99,17 +100,18 @@ export default function CreateNewParticipant() {
           value={values.purpose}
         />
         <Message>
-          <Text className="error">{validationErrors.purpose}</Text>
+          <Text color="error">{validationErrors.purpose}</Text>
         </Message>
       </Label>
-
-      <Select
-        title="Locatie Hacklab"
-        name="location"
-        value={values.location}
+      <LocationSelect
         setValues={setValues}
-        options={options}
+        value={""}
+        values={values}
+        style={{ marginBottom: 0 }}
       />
+      <Message>
+        <Text color="error">{validationErrors.location_id}</Text>
+      </Message>
       <Label htmlFor="status">
         Status
         <TextInput
@@ -120,7 +122,7 @@ export default function CreateNewParticipant() {
           value={values.status}
         />
         <Message>
-          <Text className="error">{validationErrors.status}</Text>
+          <Text color="error">{validationErrors.status}</Text>
         </Message>
       </Label>
       <Label htmlFor="source">
@@ -133,7 +135,7 @@ export default function CreateNewParticipant() {
           value={values.source}
         />
         <Message>
-          <Text className="error">{validationErrors.source}</Text>
+          <Text color="error">{validationErrors.source}</Text>
         </Message>
       </Label>
       <Label htmlFor="phonenumber">
@@ -146,7 +148,7 @@ export default function CreateNewParticipant() {
           value={values.phonenumber}
         />
         <Message>
-          <Text className="error">{validationErrors.phonenumber}</Text>
+          <Text color="error">{validationErrors.phonenumber}</Text>
         </Message>
       </Label>
 
@@ -160,7 +162,7 @@ export default function CreateNewParticipant() {
           value={values.email}
         />
         <Message>
-          <Text className="error">{validationErrors.email}</Text>
+          <Text color="error">{validationErrors.email}</Text>
         </Message>
       </Label>
       <div style={{ display: "flex", justifyContent: "end" }}>

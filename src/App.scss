@@ -42,6 +42,14 @@
   }
 }
 
+.hideondesktop {
+  display: none;
+}
+
+.hideonmobile {
+  display: none;
+}
+
 @media only screen and (min-width: 40rem) {
   .Header {
    position: relative;

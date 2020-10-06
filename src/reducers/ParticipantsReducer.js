@@ -2,6 +2,7 @@ const intitialState = {
   data: [],
   status: false,
   debug: false,
+  successState: false,
 };
 
 const reducer = (state = intitialState, action) => {
@@ -61,6 +62,18 @@ const reducer = (state = intitialState, action) => {
           }
           return participant;
         }),
+      };
+    case "CHANGE_PARTICIPANT_SUCCESSSTATE":
+      if (state.debug)
+        console.log(
+          `STORE, CHANGE_PARTICIPANT_SUCCESSSTATE: 
+        Change the success state for adding a new participant. 
+        Payload: `,
+          state.successState
+        );
+      return {
+        ...state,
+        successState: !state.successState,
       };
     default:
       return state;

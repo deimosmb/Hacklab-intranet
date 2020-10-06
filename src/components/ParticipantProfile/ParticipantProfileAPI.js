@@ -8,7 +8,7 @@ if (!existing) {
       {
         uid: "abrbakadarba",
         name: "Martin",
-        location: "Leeuwarden",
+        location_id: "location1",
         phonenumber: "0612345678",
         email: "martin@hacklab.nl",
         source: "Gemeente Leeuwarden",
@@ -20,7 +20,7 @@ if (!existing) {
       {
         uid: "234242525",
         name: "Rik",
-        location: "Heerenveen",
+        location_id: "location2",
         phonenumber: "0612345678",
         email: "Rik@hacklab.nl",
         source: "Gemeente Leeuwarden",
