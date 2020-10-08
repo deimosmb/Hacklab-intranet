@@ -82,7 +82,7 @@ export default function ChangeGenericParticipant({
               className="profile profile-generic"
               style={{ paddingTop: "0rem" }}
             >
-              <h2>ALGEMENE INFORMATIE - {values.location_id}</h2>
+              <h2>ALGEMENE INFORMATIE</h2>
 
               <LocationSelect
                 values={values}

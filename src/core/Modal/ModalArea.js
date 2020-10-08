@@ -69,10 +69,24 @@ function ModalArea({
         return `modal-slider-left ${
           active ? "modal-slider-left-transition" : ""
         }  `;
+      case "sliderright":
+        return `modal-slider-right ${
+          active ? "modal-slider-right-transition" : ""
+        }  `;
       default:
         break;
     }
   };
+
+  // const typeCheckingContainer = (type) => {
+  //   const types = ["sliderbottom", "sliderleft", "sliderright"];
+  //   if (types.includes(type)) {
+  //     return `modal-container-slider ${
+  //       active ? "modal-container-slider-transition" : ""
+  //     }  `;
+  //   }
+  //   return `modal-container ${active ? "modal-container-transition" : ""}  `;
+  // };
 
   const typeCheckingContainer = (type) => {
     switch (type) {
@@ -85,6 +99,10 @@ function ModalArea({
           active ? "modal-container-slider-transition" : ""
         }  `;
       case "sliderleft":
+        return `modal-container-slider ${
+          active ? "modal-container-slider-transition" : ""
+        }  `;
+      case "sliderright":
         return `modal-container-slider ${
           active ? "modal-container-slider-transition" : ""
         }  `;

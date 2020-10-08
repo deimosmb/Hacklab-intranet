@@ -15,6 +15,7 @@ export default function ParticipantsList() {
   const { data, status, debug } = useSelector(
     (state) => state.ParticipantsReducer
   );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,12 +33,16 @@ export default function ParticipantsList() {
   if (data.length === 0)
     return <div>Er zijn nog geen deelnemers toevoegd of actief gemaakt!</div>;
 
-  return data.map((value) => (
-    <ParticipantsItem
-      key={value.uid}
-      onClick={() => history.push(`/deelnemer/${value.uid}`)}
-      {...value}
-      locations={locations}
-    />
-  ));
+  return locations.map((location) =>
+    data
+      .filter((d) => location.uid === d.location_id)
+      .map((value) => (
+        <ParticipantsItem
+          key={value.uid}
+          onClick={() => history.push(`/deelnemer/${value.uid}`)}
+          {...value}
+          locations={locations}
+        />
+      ))
+  );
 }

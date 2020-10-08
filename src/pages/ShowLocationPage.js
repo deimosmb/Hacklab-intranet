@@ -1,11 +1,12 @@
 import React from "react";
+import Container from "./PageContainer";
 import LocationDetails from "./../components/LocationDetails";
 
 function ShowLocationPage() {
   return (
-    <section>
+    <Container>
       <LocationDetails />
-    </section>
+    </Container>
   );
 }
 

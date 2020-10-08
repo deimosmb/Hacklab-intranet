@@ -1,4 +1,5 @@
 import React from "react";
+import Container from "./PageContainer";
 import {
   ParticipantsList,
   ParticipantsHeader,
@@ -6,10 +7,10 @@ import {
 
 function ParticipantsPage() {
   return (
-    <section>
+    <Container>
       <ParticipantsHeader />
       <ParticipantsList />
-    </section>
+    </Container>
   );
 }
 
