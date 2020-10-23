@@ -1,5 +1,21 @@
 @import './../../variables';
 
+.scroll-lock {
+  //overflow: hidden;
+ // margin-right: 17px;
+}
+
+.desktop {
+
+}
+
+.mobile {
+
+}
+
+.desktop-only {
+  display: none;
+}
 
 .modal-container {
   width: 100%;
@@ -15,7 +31,6 @@
   &-transition {
  
     background-color: rgba(0, 0, 0, 0.5);
-    
   }
 }
 
@@ -47,9 +62,35 @@
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+.modal-area-normal {
+  @extend .modal-area;
   transform: scale(0);
   &-transition {
     transform: scale(1);
+  }
+}
+
+.modal-area-small {
+  @extend .modal-area;
+  height: max-content;
+  transform: translateY(5%) scale(0);
+  &-transition {
+    transform: scale(1) translateY(5%);
+  }
+}
+
+
+.modal-area-center {
+  @extend .modal-area;
+  height: max-content;
+  opacity: 0;
+  width: 90vw;
+  transform: translate(5%, 50%) scale(0);
+  &-transition {
+    transform: translate(5%, 90%) scale(1);
+    opacity: 1;
   }
 }
 
@@ -90,9 +131,71 @@
   }
 }
 
+.modal-slider-left {
+  @extend .slider-type-settings;
+  width: 90vw;
+  height: 100%;
+  margin-left: -90vw;
+  left: 0;
+  transition: all 0.5s;
+  overflow-x: hidden;
+  z-index: 1000;
+  -webkit-overflow-scrolling: touch;
+  &-transition {
+    margin-left: 0rem;
+  }
+}
+
+
 @media screen and (min-width: 40rem) {
   /* Center the Modal! */
-  .modal-area {
+
+  .modal-area-desktop {
+    left: 50%;
+    top: 50%;
+    height: auto;
+    transition: all 0.3s;
+    transform: translate(-50%, -150%) scale(0);
+    opacity: 0;
+    max-width: 30rem;
+    max-height: calc(100% - 1em);
+    &-transition {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .modal-area-normal {
+    left: 50%;
+    top: 50%;
+    height: auto;
+    transition: all 0.3s;
+    transform: translate(-50%, -150%) scale(0);
+    opacity: 0;
+    max-width: 30rem;
+    max-height: calc(100% - 1em);
+    &-transition {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .modal-area-center {
+    left: 50%;
+    top: 50%;
+    height: auto;
+    transition: all 0.3s;
+    transform: translate(-50%, -150%) scale(0);
+    opacity: 0;
+    max-width: 30rem;
+    max-height: calc(100% - 1em);
+    &-transition {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .modal-area-small {
     left: 50%;
     top: 50%;
     height: auto;
@@ -129,6 +232,14 @@
       margin-right: 0;
     }
   }
+
+  .mobile-only {
+    display: none;
+  }
+
+  .desktop-only {
+    display: block;
+  }
 }
 
 ._modal-close {
@@ -161,11 +272,6 @@
   position: absolute !important;
   width: 1px !important;
   white-space: nowrap !important;
-}
-
-.scroll-lock {
-  overflow: hidden;
-  //margin-right: 17px;
 }
 
 .modal-button {

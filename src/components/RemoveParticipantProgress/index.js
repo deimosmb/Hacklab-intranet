@@ -13,7 +13,6 @@ export const RemoveParticipantProgress = ({ values }) => {
     setIsActiveConfirm,
     isActiveConfirm,
     setSuccess,
-    //success,
   } = values;
 
   const dispatch = useDispatch();
@@ -38,14 +37,20 @@ export const RemoveParticipantProgress = ({ values }) => {
   return (
     <>
       {isActiveConfirm ? (
-        <ModalArea onClose={() => setIsActiveConfirm(false)}>
-          <div>
+        <ModalArea onClose={() => setIsActiveConfirm(false)} type="center">
+          <div style={{ padding: "0 1rem" }}>
             <p>
               Weet je zeker om de voortgang notitie te verwijderen? Dit kan niet
               ongedaan worden gemaakt!
             </p>
           </div>
-          <form style={{ display: "flex", justifyContent: "space-around" }}>
+          <form
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              marginBottom: "1rem",
+            }}
+          >
             <Button
               name="Annuleer"
               onMouseDown={(event) => event.preventDefault()}

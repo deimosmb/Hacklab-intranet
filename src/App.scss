@@ -3,32 +3,18 @@
   position: fixed;
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
-  background-color: $primary-color;
+  background-color: white;
   z-index: 2;
   width: 100%;
   margin-bottom: 5rem;
-  &-nav{
-    max-width: 960px;
-    width: 100%;
-  }
-    h1 {
-      color: $secondary-color;
-      font-size: 2rem;
-      letter-spacing: 0.5rem;
-      margin: 1rem 0 1rem 0.5rem;
-    }
 }
 
 .App {
   display: grid;
   justify-items: center;
   padding: 0 0.75rem 0 0.75rem;
-  //width: 100%;
-  //position: fixed;
-  height: 100%;
-  //overflow-y: auto;
   > section {
     margin-top: 5rem;
     max-width: 960px;
@@ -43,7 +29,7 @@
 }
 
 .hideondesktop {
-  display: none;
+  display: inline-block;
 }
 
 .hideonmobile {
@@ -54,17 +40,18 @@
   .Header {
    position: relative;
    box-shadow: none;
-   background-color: white;
-   margin-bottom: 0rem;
-     h1 {
-        letter-spacing: 1rem;
-       color: $primary-color;
-     }
-   
+   margin-bottom: 1rem;
+   border-bottom: 0.5px solid $secondary-color;
+  }
+
+  .hideonmobile {
+    display: inline-block;
+  }
+
+  .hideondesktop {
+    display: none;
   }
   .App {
-   // overflow-y: auto;
-    height: 100%;
     position: relative;
     > section {
       margin-top: 0rem;

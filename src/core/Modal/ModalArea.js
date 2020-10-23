@@ -11,6 +11,9 @@ function ModalArea({
   transist = false,
   type = "normal",
   to,
+  className = null,
+  desktop = true,
+  mobile = true,
   children,
 }) {
   const aria = useRef(null);
@@ -19,6 +22,7 @@ function ModalArea({
 
   useEffect(() => {
     aria.current.focus();
+    toggleScrollLock();
     setActive(true);
   }, []);
 
@@ -57,40 +61,11 @@ function ModalArea({
     }
   };
 
-  const typeCheckingArea = (type) => {
-    switch (type) {
-      case "normal":
-        return `modal-area ${active ? "modal-area-transition" : ""}  `;
-      case "sliderbottom":
-        return `modal-slider-bottom ${
-          active ? "modal-slider-bottom-transition" : ""
-        }  `;
-      case "sliderleft":
-        return `modal-slider-left ${
-          active ? "modal-slider-left-transition" : ""
-        }  `;
-      case "sliderright":
-        return `modal-slider-right ${
-          active ? "modal-slider-right-transition" : ""
-        }  `;
-      default:
-        break;
-    }
-  };
-
-  // const typeCheckingContainer = (type) => {
-  //   const types = ["sliderbottom", "sliderleft", "sliderright"];
-  //   if (types.includes(type)) {
-  //     return `modal-container-slider ${
-  //       active ? "modal-container-slider-transition" : ""
-  //     }  `;
-  //   }
-  //   return `modal-container ${active ? "modal-container-transition" : ""}  `;
-  // };
-
   const typeCheckingContainer = (type) => {
     switch (type) {
       case "normal":
+      case "small":
+      case "center":
         return `modal-container ${
           active ? "modal-container-transition" : ""
         }  `;
@@ -111,6 +86,40 @@ function ModalArea({
     }
   };
 
+  const typeCheckingArea = (type) => {
+    switch (type) {
+      case "small":
+        return `modal-area-small ${
+          active ? "modal-area-small-transition" : ""
+        }  `;
+      case "normal":
+        return `modal-area-normal ${
+          active ? "modal-area-normal-transition" : ""
+        }  `;
+      case "center":
+        return `modal-area-center ${
+          active ? "modal-area-center-transition" : ""
+        }  `;
+      case "sliderbottom":
+        return `modal-slider-bottom ${
+          active ? "modal-slider-bottom-transition" : ""
+        }  `;
+      case "sliderleft":
+        return `modal-slider-left ${
+          active ? "modal-slider-left-transition" : ""
+        }  `;
+      case "sliderright":
+        return `modal-slider-right ${
+          active ? "modal-slider-right-transition" : ""
+        }  `;
+      default:
+        break;
+    }
+  };
+
+  const desktopStyle = desktop ? "desktop" : "mobile-only";
+  const mobileStyle = mobile ? "mobile" : "desktop-only";
+
   return ReactDOM.createPortal(
     <aside
       tag="aside"
@@ -118,12 +127,16 @@ function ModalArea({
       tabIndex="-1"
       role="dialog"
       type={type}
-      className={typeCheckingContainer(type)}
+      className={`${typeCheckingContainer(
+        type
+      )} ${desktopStyle} ${mobileStyle}`}
       onKeyDown={onKeyDown}
       onClick={onClickOutside}
     >
       <div
-        className={typeCheckingArea(type)}
+        className={`${className ? className + " ," : ""} ${typeCheckingArea(
+          type
+        )}`}
         onTransitionEnd={onCloseModal}
         ref={aria}
         //onFocus={() => console.log("focused", active)}

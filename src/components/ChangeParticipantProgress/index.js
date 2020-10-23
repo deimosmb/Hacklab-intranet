@@ -19,6 +19,8 @@ export const ChangeProgress = ({
 
   const dispatch = useDispatch();
 
+  console.log("he");
+
   const [value, setValue] = useState(content);
 
   const [validationErrors, setValidationErrors] = useState({});
@@ -74,10 +76,13 @@ export const ChangeProgress = ({
   return (
     <>
       {isActiveClass ? (
-        <ModalArea onClose={() => setIsActiveClass({ [uid]: false })}>
+        <ModalArea
+          onClose={() => setIsActiveClass({ [uid]: false })}
+          type="small"
+        >
           <form onSubmit={onChangeProgressContent}>
             <TextArea
-              style={{ height: "9rem" }}
+              style={{ height: "12rem" }}
               autoFocus
               value={value}
               onChange={handleOnChange}

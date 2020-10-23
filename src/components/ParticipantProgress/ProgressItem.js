@@ -3,8 +3,40 @@ import { TextBlock } from "./../../core/message";
 import { Notification } from "./../../core/Notification";
 import { ChangeProgress } from "./../ChangeParticipantProgress";
 import PropTypes from "prop-types";
+import { ModalArea } from "../../core/Modal";
 import "./index.scss";
 import { RemoveParticipantProgress } from "../RemoveParticipantProgress";
+
+const ProgressItemEditMenu = ({
+  handleOnClickChange,
+  handleOnClickRemove,
+  className,
+}) => {
+  const handleOnMouseDown = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <div className={`edit ${className}`}>
+      <i
+        className="fa fa-edit"
+        onMouseDown={handleOnMouseDown}
+        onClick={handleOnClickChange}
+      >
+        {" "}
+        <span className="edit-text">Aanpassen</span>
+      </i>
+      <i
+        className="fa fa-trash"
+        onMouseDown={handleOnMouseDown}
+        onClick={handleOnClickRemove}
+      >
+        {" "}
+        <span className="edit-text">Verwijderen</span>
+      </i>
+    </div>
+  );
+};
 
 export const ProgressItem = ({ values }) => {
   const {
@@ -24,21 +56,21 @@ export const ProgressItem = ({ values }) => {
   }, [setIsActiveClass, uid]);
 
   const [isShown, setIsShown] = useState(false);
+  const [isShownModal, setIsShownModal] = useState(false);
 
   const [successChange, setSuccessChange] = useState(false);
 
   const [isActiveConfirm, setIsActiveConfirm] = useState(false);
 
-  const handleOnMouseDown = (event) => {
-    event.preventDefault();
-  };
+  const [to, setTo] = useState(null);
 
-  const handleOnClickRemove = () => {
+  const handleOnClickRemove = (e) => {
     setSuccess(false);
     setIsActiveConfirm(!isActiveConfirm);
+    setTo(e.target);
   };
 
-  const handleOnClick = () => {
+  const handleOnClickEdit = () => {
     setIsActiveClass((prev) => {
       const prevuid = prev[uid];
       for (const a in prev) {
@@ -47,6 +79,7 @@ export const ProgressItem = ({ values }) => {
       return { ...prev, [uid]: prevuid ? false : true };
     });
     setIsShown(false);
+    setIsShownModal(false);
     setSuccessChange(false);
   };
 
@@ -56,6 +89,10 @@ export const ProgressItem = ({ values }) => {
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => {
         setIsShown(false);
+      }}
+      onClick={() => {
+        console.log("clicked", isShownModal);
+        setIsShownModal(!isShownModal);
       }}
     >
       {successChange && (
@@ -68,19 +105,28 @@ export const ProgressItem = ({ values }) => {
       )}
       <header className="progress-item-header">
         {isShown && (
-          <div className="edit">
-            <i
-              className="fa fa-edit"
-              onMouseDown={handleOnMouseDown}
-              onClick={handleOnClick}
-            ></i>
-            <i
-              className="fa fa-trash"
-              onMouseDown={handleOnMouseDown}
-              onClick={handleOnClickRemove}
-            ></i>
-          </div>
+          <ProgressItemEditMenu
+            handleOnClickChange={handleOnClickEdit}
+            handleOnClickRemove={handleOnClickRemove}
+            className="hideonmobile"
+          />
         )}
+        {isShownModal ? (
+          <ModalArea
+            type="sliderbottom"
+            onClose={() => setIsShown(false)}
+            desktop={false}
+          >
+            <ProgressItemEditMenu
+              handleOnClickChange={handleOnClickEdit}
+              handleOnClickRemove={handleOnClickRemove}
+              className="hideondesktop"
+            />
+          </ModalArea>
+        ) : (
+          React.Fragment
+        )}
+
         <span>{created_at}</span>
         <span>{updated_at ?? null}</span>
       </header>
@@ -93,6 +139,7 @@ export const ProgressItem = ({ values }) => {
             setIsActiveConfirm,
             uid,
             participant_id,
+            to,
           }}
         />
       ) : (
@@ -101,7 +148,7 @@ export const ProgressItem = ({ values }) => {
       {isActiveClass[uid] && (
         <ChangeProgress
           values={values}
-          onBlur={handleOnClick}
+          onBlur={handleOnClickEdit}
           setSuccessChange={setSuccessChange}
           setIsActiveClass={setIsActiveClass}
           isActiveClass={isActiveClass}

@@ -5,9 +5,9 @@ import ModalArea from "./ModalArea";
 
 //prevent scrolling after modal is shown
 export const toggleScrollLock = () => {
-  //if (window.innerHeight <= document.body.scrollHeight) {
-  document.querySelector("html").classList.toggle("scroll-lock");
-  // }
+  if (window.innerHeight <= document.body.scrollHeight) {
+    document.querySelector("html").classList.toggle("scroll-lock");
+  }
 };
 
 export { ModalActivation, ModalArea };
