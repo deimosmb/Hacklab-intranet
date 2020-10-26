@@ -6,9 +6,20 @@ export const ItemHeader = ({ name }) => (
   <div className="item-header">{name}</div>
 );
 
+ItemHeader.propTypes = {
+  name: PropTypes.string,
+};
+
 export const ItemLine = ({ children }) => (
   <div className="item-line">{children}</div>
 );
+
+ItemLine.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
 
 export const Item = ({ onClick, children }) => (
   <div onClick={onClick} className="item">
@@ -16,41 +27,64 @@ export const Item = ({ onClick, children }) => (
   </div>
 );
 
-const handleOnMouseDown = (event) => {
-  event.preventDefault();
-};
-
-export const ItemChangeIcon = ({ type, onClick, name = "", className }) => (
-  <i
-    className={`fa fa-${type} item-${className}`}
-    onMouseDown={handleOnMouseDown}
-    onClick={onClick}
-  >
-    <span className="item-change-name"> {name}</span>
-  </i>
-);
-
-export const ItemChangeContainer = (props) => {
-  return (
-    <div className={`item-change ${props.className}`}>{props.children}</div>
-  );
-};
-
-ItemChangeIcon.propTypes = {
-  type: PropTypes.string,
-  name: PropTypes.string,
-  onClick: PropTypes.func,
-};
-
 Item.propTypes = {
   name: PropTypes.string,
 };
 
-ItemHeader.propTypes = {
-  name: PropTypes.string,
+export const ItemChangeIcon = ({
+  type,
+  onClick,
+  className,
+  children,
+  ...rest
+}) => (
+  <i
+    className={`fa fa-${type} item-${className}`}
+    onMouseDown={(e) => e.preventDefault}
+    onClick={onClick}
+    {...rest}
+  >
+    {children}
+  </i>
+);
+
+ItemChangeIcon.propTypes = {
+  type: PropTypes.string,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  rest: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
-ItemLine.propTypes = {
+export const ItemChangeName = ({ className, children, ...rest }) => (
+  <span className={`item-change-name ${className}`} {...rest}>
+    {children}
+  </span>
+);
+
+ItemChangeName.propTypes = {
+  className: PropTypes.string,
+  rest: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
+
+export const ItemChangeContainer = ({ className, children, ...rest }) => {
+  return (
+    <div className={`item-change ${className}`} {...rest}>
+      {children}
+    </div>
+  );
+};
+
+ItemChangeContainer.propTypes = {
+  className: PropTypes.string,
+  rest: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

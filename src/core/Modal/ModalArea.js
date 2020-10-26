@@ -28,7 +28,6 @@ function ModalArea({
 
   useEffect(() => {
     if (transist) {
-      console.log("TANSIST", transist);
       handleTransition();
     }
   }, [transist]);
@@ -139,7 +138,6 @@ function ModalArea({
         )}`}
         onTransitionEnd={onCloseModal}
         ref={aria}
-        //onFocus={() => console.log("focused", active)}
       >
         <ModalClose onCloseModal={handleTransition} />
         <div className="modal-body">{children}</div>

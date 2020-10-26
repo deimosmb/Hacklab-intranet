@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Item, ItemHeader, ItemLine } from "./../../core/Item";
-import { ItemChangeContainer, ItemChangeIcon } from "./../../core/Item";
+import {
+  ItemChangeContainer,
+  ItemChangeIcon,
+  ItemChangeName,
+} from "./../../core/Item";
 import { Notification } from "./../../core/Notification";
 import { ModalArea } from "../../core/Modal";
 import ChangeLocation from "./../ChangeLocation";
@@ -55,18 +59,25 @@ export const LocationItem = ({ values }) => {
           <ItemChangeContainer>
             <ItemChangeIcon
               type="arrow-circle-right"
-              name="Bekijken"
               onClick={() => history.push(`./locatie/${name}`)}
-            />
+            >
+              {" "}
+              <ItemChangeName>bekijken</ItemChangeName>
+            </ItemChangeIcon>
             <ItemChangeIcon
               type="edit"
-              name="Aanpassen"
               onClick={() => {
                 setIsActive(true);
                 setIsShown(false);
               }}
-            />
-            <ItemChangeIcon type="eye-slash" name="Deactiveren" />
+            >
+              {" "}
+              <ItemChangeName>Aanpassen</ItemChangeName>
+            </ItemChangeIcon>
+            <ItemChangeIcon type="eye-slash">
+              {" "}
+              <ItemChangeName>Deactiveren</ItemChangeName>
+            </ItemChangeIcon>
           </ItemChangeContainer>
         </ModalArea>
       ) : (

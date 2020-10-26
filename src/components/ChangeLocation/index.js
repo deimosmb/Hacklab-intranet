@@ -9,7 +9,7 @@ import { Message, Text } from "./../../core/message";
 import { useDispatch } from "react-redux";
 import { changeLocation } from "./../../actions/LocationActions";
 
-export default function ChangeGenericParticipant({
+export default function ChangeLocation({
   setIsActive,
   isActive,
   setIsSuccess,
@@ -150,7 +150,7 @@ export default function ChangeGenericParticipant({
   );
 }
 
-ChangeGenericParticipant.propTypes = {
+ChangeLocation.propTypes = {
   active: PropTypes.bool,
   setActive: PropTypes.func,
 };

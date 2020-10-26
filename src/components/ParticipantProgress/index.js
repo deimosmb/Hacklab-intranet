@@ -12,7 +12,6 @@ function ParticipantsProgress() {
   const [active, setActive] = useState(false);
   const progress = useSelector((state) => state.ProgressReducer.data);
   const dispatch = useDispatch();
-  const [isActiveClass, setIsActiveClass] = useState({});
   const [success, setSuccess] = useState(false);
   const { id } = useParams();
 
@@ -58,8 +57,6 @@ function ParticipantsProgress() {
               <ProgressItem
                 key={value.uid}
                 values={{
-                  isActiveClass,
-                  setIsActiveClass,
                   success,
                   setSuccess,
                   ...value,

@@ -14,12 +14,12 @@ export const ChangeProgress = ({
   setIsActiveClass,
   isActiveClass,
   setSuccessChange,
+  isActive,
+  setIsActive,
 }) => {
   const { uid, content, created_at, updated_at } = values;
 
   const dispatch = useDispatch();
-
-  console.log("he");
 
   const [value, setValue] = useState(content);
 
@@ -67,19 +67,16 @@ export const ChangeProgress = ({
           },
           (error) => console.error(error)
         );
-        return setIsActiveClass({ [uid]: false });
+        return setIsActive(false);
       }
     }
-    setIsActiveClass({ [uid]: false });
+    setIsActive(false);
   };
 
   return (
     <>
-      {isActiveClass ? (
-        <ModalArea
-          onClose={() => setIsActiveClass({ [uid]: false })}
-          type="small"
-        >
+      {isActive ? (
+        <ModalArea onClose={() => setIsActive(false)} type="small">
           <form onSubmit={onChangeProgressContent}>
             <TextArea
               style={{ height: "12rem" }}

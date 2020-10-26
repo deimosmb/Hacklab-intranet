@@ -73,8 +73,6 @@ export default function CreateNewParticipant() {
     }
   };
 
-  console.log("VALUESVALUESVALUES", values);
-
   return (
     <form>
       <Label htmlFor="name">
