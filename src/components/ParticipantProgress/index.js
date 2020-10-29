@@ -4,7 +4,7 @@ import { Notification } from "./../../core/Notification";
 import { ParticipantProgressApi } from "./ParticipantProgressApi";
 import { ProgressItem } from "./ProgressItem";
 import CreateParticipantProgress from "./../CreateParticipantProgress";
-import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
+import { ContentHeader } from "../ContentHeader";
 import { useSelector, useDispatch } from "react-redux";
 import { addProgress } from "../../actions/ProgressActions";
 
@@ -29,7 +29,7 @@ function ParticipantsProgress() {
 
   return (
     <div className="progress">
-      <ParticipantProfileHeader>
+      <ContentHeader>
         <span>VOORTGANG</span>
         <button
           className="progress-addprogress fa fa-plus"
@@ -39,7 +39,7 @@ function ParticipantsProgress() {
           {" "}
           NIEUWE NOTITIE
         </button>
-      </ParticipantProfileHeader>
+      </ContentHeader>
       <CreateParticipantProgress active={active} setActive={setActive} />
       {success && (
         <Notification

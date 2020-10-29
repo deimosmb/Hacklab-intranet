@@ -4,7 +4,7 @@ import { GetLocationsAPI } from "./LocationsAPI";
 import { Button } from "./../../core/Form";
 import { LocationItem } from "./LocationItem";
 import { useSelector, useDispatch } from "react-redux";
-import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
+import { ContentHeader } from "../ContentHeader";
 import {
   allLocations,
   changeLocationSuccessState,
@@ -33,7 +33,7 @@ export default function Locations() {
 
   return (
     <>
-      <ParticipantProfileHeader>
+      <ContentHeader>
         <span>LOCATIES</span>
         <Link to="/nieuwelocatie" style={{ padding: 0 }}>
           <Button
@@ -48,7 +48,7 @@ export default function Locations() {
             message={`Nieuwe locatie toegevoegd!`}
           />
         )}
-      </ParticipantProfileHeader>
+      </ContentHeader>
       {data.length > 0 ? (
         data.map((value) => <LocationItem key={value.uid} values={value} />)
       ) : (

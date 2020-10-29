@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { ProfileItem } from "./Profile";
-import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
+import { ContentHeader } from "../ContentHeader";
 import ChangeGenericParticipant from "./../ChangeParticipant/Generic";
 import { ModalActivation } from "./../../core/Modal";
 import { Notification } from "./../../core/Notification";
@@ -39,7 +39,7 @@ const Profile = ({ data }) => {
 
   return (
     <>
-      <ParticipantProfileHeader>
+      <ContentHeader>
         <span>ALGEMENE INFORMATIE</span>
         {/* <IconButton onClick={handleOnClick} /> */}
         <ModalActivation
@@ -48,7 +48,7 @@ const Profile = ({ data }) => {
         >
           <i className="icon fa fa-edit" />
         </ModalActivation>
-      </ParticipantProfileHeader>
+      </ContentHeader>
 
       <div className="profile profile-generic">
         <ProfileItem

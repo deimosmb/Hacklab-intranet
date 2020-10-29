@@ -20,6 +20,8 @@ export default function ChangeGenericParticipant({
 }) {
   const [values, setValues] = useState({});
 
+  const [transition, setTransition] = useState(false);
+
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -59,8 +61,8 @@ export default function ChangeGenericParticipant({
       ChangeParticipantAPI(
         data,
         (json) => {
-          console.log(success);
-          setActive(false);
+          //setActive(false);
+          setTransition(true);
           setSuccess(true);
           dispatch(changeParticipant(json));
         },
@@ -69,14 +71,19 @@ export default function ChangeGenericParticipant({
             "Er ging iets mis met het aanpassen van algemene deelnemer gegegevens"
           )
       );
-      return setActive(false);
+      //return setActive(false);
     }
   };
 
   return (
     <>
       {active ? (
-        <ModalArea onClose={() => setActive(!active)} transist={success}>
+        <ModalArea
+          onClose={() => setActive(!active)}
+          isTransistion={transition}
+          setIsActive={setActive}
+          setIsTransistion={setTransition}
+        >
           <form>
             <div
               className="profile profile-generic"

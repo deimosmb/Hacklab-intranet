@@ -8,6 +8,9 @@ import ParticapantProfilePage from "./pages/ParticapantProfilePage";
 import ShowLocationPage from "./pages/ShowLocationPage";
 import ParticapantsPage from "./pages/Participants";
 import LocationsPage from "./pages/LocationsPage";
+import SkillsPage from "./pages/SkillsPage";
+import OrganizationsPage from "./pages/Organizationspage";
+import WorkshopsPage from "./pages/WorkshopsPage";
 import { Filter } from "./components/Filter";
 import { Navigation } from "./components/Navigation";
 import { ParticipantsContextProvider } from "./context/participants-context";
@@ -28,11 +31,14 @@ function App() {
             <Switch>
               <Route path="/" exact component={ParticapantsPage} />
               <Route path="/deelnemers" exact component={ParticapantsPage} />
-              <Route path="/locaties" exact component={LocationsPage} />
               <Route path="/deelnemer/:id" component={ParticapantProfilePage} />
-              <Route path="/locatie/:name" component={ShowLocationPage} />
               <Route path="/nieuwedeelnemer" component={NewParticipant} />
+              <Route path="/locaties" exact component={LocationsPage} />
+              <Route path="/locatie/:name" component={ShowLocationPage} />
               <Route path="/nieuwelocatie" component={NewLocationPage} />
+              <Route path="/vaardigheden" exact component={SkillsPage} />
+              <Route path="/organisaties" exact component={OrganizationsPage} />
+              <Route path="/lessen" exact component={WorkshopsPage} />
 
               <Route
                 render={() => (

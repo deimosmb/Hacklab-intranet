@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
+import { ContentHeader } from "../ContentHeader";
 import { ProfileItem } from "./Profile";
 import ChangeGenericParticipant from "./../ChangeParticipant/Purpose";
 import IconButton from "./../IconButton";
@@ -28,7 +28,7 @@ const ParticipantGoal = ({ data }) => {
   return (
     <>
       <h2 className="profile-head">{name}</h2>
-      <ParticipantProfileHeader>
+      <ContentHeader>
         <span>DOEL</span>
         <IconButton onClick={handleOnClick} />
         {successState && (
@@ -38,7 +38,7 @@ const ParticipantGoal = ({ data }) => {
             message={`Niewe deelnemer ${name} toegevoegd!`}
           />
         )}
-      </ParticipantProfileHeader>
+      </ContentHeader>
       <div className="profile">
         {!active && <ProfileItem name={purpose} />}
         {active && <ChangeGenericParticipant {...values} />}

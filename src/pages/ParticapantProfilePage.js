@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Container from "./PageContainer";
-import Participant from "./../components/ParticipantProfile";
+import ParticipantGeneric from "./../components/ParticipantProfile";
 import ParticipantProfileGoal from "./../components/ParticipantProfile/ParticipantPurpose";
 import Data from "./../components/ParticipantProfile/data";
 import ParticipantsProgress from "./../components/ParticipantProgress";
+import { ParticipantSkills } from "./../components/ParticipantSkills";
 
 function ParticipantProfilePage() {
   const [data, setData] = useState({});
@@ -13,7 +14,8 @@ function ParticipantProfilePage() {
       <Data setData={setData} />
       <ParticipantProfileGoal data={data} />
       <ParticipantsProgress />
-      <Participant data={data} />
+      <ParticipantSkills />
+      <ParticipantGeneric data={data} />
     </Container>
   );
 }

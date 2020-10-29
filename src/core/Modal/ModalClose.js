@@ -5,7 +5,7 @@ export const ModalClose = ({ onCloseModal }) => {
   const modalCloseButton = useRef(null);
 
   useEffect(() => {
-    //modalCloseButton.current.focus();
+    modalCloseButton.current.focus();
   }, []);
 
   const onClose = () => {

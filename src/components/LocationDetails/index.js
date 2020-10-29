@@ -3,7 +3,7 @@ import { GetLocationsAPI } from "./../Locations/LocationsAPI";
 import { useParams } from "react-router-dom";
 import { ProfileItem } from "./../ParticipantProfile/Profile";
 import { useSelector, useDispatch } from "react-redux";
-import { ParticipantProfileHeader } from "./../ParticipantProfileHeader";
+import { ContentHeader } from "../ContentHeader";
 import { allLocations } from "./../../actions/LocationActions";
 
 //list of locations
@@ -31,9 +31,9 @@ export default function Locations() {
 
   return (
     <>
-      <ParticipantProfileHeader>
+      <ContentHeader>
         <span>LOCATIE </span>
-      </ParticipantProfileHeader>
+      </ContentHeader>
       <div className="profile profile-generic">
         <ProfileItem name={location.name} label="Hacklab locatie" />
         <ProfileItem name={location.adress} label="Adres" />

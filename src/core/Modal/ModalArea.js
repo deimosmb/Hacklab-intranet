@@ -8,9 +8,11 @@ import { ModalClose } from "./ModalClose";
 
 function ModalArea({
   onClose,
-  transist = false,
+  isTransistion,
   type = "normal",
   to,
+  setIsTransistion,
+  setIsActive,
   className = null,
   desktop = true,
   mobile = true,
@@ -27,10 +29,17 @@ function ModalArea({
   }, []);
 
   useEffect(() => {
-    if (transist) {
+    if (isTransistion) {
       handleTransition();
     }
-  }, [transist]);
+  }, [isTransistion]);
+
+  const handleMainTransitionEnded = () => {
+    if (isTransistion) {
+      setIsActive(false);
+      setIsTransistion(false);
+    }
+  };
 
   //when clicked on the transparent outside section of the modal
   const onClickOutside = (event) => {
@@ -56,7 +65,7 @@ function ModalArea({
   //27 === ESC button
   const onKeyDown = (event) => {
     if (event.keyCode === 27) {
-      onCloseModal();
+      handleTransition();
     }
   };
 
@@ -131,6 +140,7 @@ function ModalArea({
       )} ${desktopStyle} ${mobileStyle}`}
       onKeyDown={onKeyDown}
       onClick={onClickOutside}
+      onTransitionEnd={handleMainTransitionEnded}
     >
       <div
         className={`${className ? className + " ," : ""} ${typeCheckingArea(
